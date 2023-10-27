@@ -1,5 +1,4 @@
-The MIT License (MIT)
-
+/*
 Copyright © 2023 Robson William
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
@@ -19,3 +18,38 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
+*/
+package cmd
+
+import (
+	"fmt"
+
+	"github.com/spf13/cobra"
+)
+
+// rmCmd represents the rm command
+var rmCmd = &cobra.Command{
+	Use:   "rm",
+	Short: "Removes a ROM file",
+	Long: `Removes a ROM file or files from the machine where RetroPie is installed.
+For example:
+
+rosy rm Game.ms				Removes "Game.ms" from $HOME/RetroPie/roms/mastersystem`,
+	Run: func(cmd *cobra.Command, args []string) {
+		fmt.Println("rm called")
+	},
+}
+
+func init() {
+	rootCmd.AddCommand(rmCmd)
+
+	// Here you will define your flags and configuration settings.
+
+	// Cobra supports Persistent Flags which will work for this command
+	// and all subcommands, e.g.:
+	// rmCmd.PersistentFlags().String("foo", "", "A help for foo")
+
+	// Cobra supports local flags which will only run when this command
+	// is called directly, e.g.:
+	// rmCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+}
