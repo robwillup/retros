@@ -18,9 +18,7 @@ func EstablishSSHConnection(config SSHConfig) (*ssh.Client, error) {
 		HostKeyCallback: trustedHostKeyCallback(),
 	}
 
-	if config.Password != "" {
-		sshConfig.Auth = append(sshConfig.Auth, ssh.Password(config.Password))
-	} else if config.KeyPath != "" {
+	if config.KeyPath != "" {
 		key, err := os.ReadFile(config.KeyPath)
 		if err != nil {
 			return nil, err

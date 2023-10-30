@@ -22,12 +22,12 @@ THE SOFTWARE.
 package cmd
 
 import (
+	"fmt"
 	"os"
 
+	"github.com/robwillup/rosy/src/config"
 	"github.com/spf13/cobra"
 )
-
-
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
@@ -36,9 +36,9 @@ var rootCmd = &cobra.Command{
 	Long: `An easy to use CLI tool that helps you maintain
 your RetroPie game library organized and clean.`,
 
-	// Uncomment the following line if your bare application
-	// has an action associated with it:
-	// Run: func(cmd *cobra.Command, args []string) { },
+	Run: func(cmd *cobra.Command, args []string) {
+		checkConfig()
+	},
 }
 
 // Execute adds all child commands to the root command and sets flags appropriately.
@@ -62,4 +62,11 @@ func init() {
 	rootCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }
 
+func checkConfig() {
+	if !config.CheckIfConfigFileExists() {
+		fmt.Println("RoSy must be configured. Run `rosy cf` and follow the prompts")
+		return
+	}
 
+	fmt.Println("RoSy: ROM Sync for RetroPie")
+}

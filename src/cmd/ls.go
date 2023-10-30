@@ -23,8 +23,10 @@ package cmd
 
 import (
 	"fmt"
+	"log"
 
-	"github.com/robwillup/rosy/sshutils"
+	"github.com/robwillup/rosy/src/config"
+	"github.com/robwillup/rosy/src/sshutils"
 	"github.com/spf13/cobra"
 )
 
@@ -42,12 +44,11 @@ rosy ls -p snes		Lists all ROM files under snes/
 		fmt.Println("ROM files found: ")
 		fmt.Println()
 
-		config := sshutils.SSHConfig{
-			Host: "",
-			Port: 22,
-			Username: "",
-			Password: "",
-			KeyPath: "",
+		config, err := config.ReadConfigFile()
+
+		if err != nil {
+			log.Fatal("Failed to read config file")
+			return
 		}
 
 		client, err := sshutils.EstablishSSHConnection(config)
