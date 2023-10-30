@@ -24,6 +24,7 @@ package cmd
 import (
 	"fmt"
 
+	"github.com/robwillup/rosy/sshutils"
 	"github.com/spf13/cobra"
 )
 
@@ -39,6 +40,38 @@ rosy ls -p snes		Lists all ROM files under snes/
 `,
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("ls called")
+
+		config := sshutils.SSHConfig{
+			Host: "",
+			Port: 22,
+			Username: "",
+			Password: "",
+			KeyPath: "",
+			HostKey: "",
+		}
+
+		client, err := sshutils.EstablishSSHConnection(config)
+		if err != nil {
+			fmt.Println(err.Error())
+			return
+		}
+
+		defer client.Close()
+
+		// Define the remote command you want to execute
+		remoteCommand := "ls " + "/home/pi/RetroPie/roms/snes"
+
+		// Execute the remote command
+		output, err := sshutils.ExecuteRemoteCommand(client, remoteCommand)
+		if err != nil {
+			// Handle error
+			return
+		}
+
+		// Process the output of the remote command
+		// For example, print it to the console
+		fmt.Println("Remote Command Output:")
+		fmt.Println(output)
 	},
 }
 

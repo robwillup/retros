@@ -32,8 +32,10 @@ import (
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
 	Use:   "rosy",
-	Short: "RoSy is a ROM Synchronizer for RetroPie",
-	Long: `RoSy helps you maintain your RetroPie game library organized and clean.`,
+	Short: "RoSy is a ROM synchronizer for RetroPie",
+	Long: `An easy to use CLI tool that helps you maintain
+your RetroPie game library organized and clean.`,
+
 	// Uncomment the following line if your bare application
 	// has an action associated with it:
 	// Run: func(cmd *cobra.Command, args []string) { },
