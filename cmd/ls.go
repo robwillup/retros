@@ -39,7 +39,8 @@ rosy ls				Lists all ROM files
 rosy ls -p snes		Lists all ROM files under snes/
 `,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("ls called")
+		fmt.Println("ROM files found: ")
+		fmt.Println()
 
 		config := sshutils.SSHConfig{
 			Host: "",
@@ -47,7 +48,6 @@ rosy ls -p snes		Lists all ROM files under snes/
 			Username: "",
 			Password: "",
 			KeyPath: "",
-			HostKey: "",
 		}
 
 		client, err := sshutils.EstablishSSHConnection(config)
@@ -70,7 +70,6 @@ rosy ls -p snes		Lists all ROM files under snes/
 
 		// Process the output of the remote command
 		// For example, print it to the console
-		fmt.Println("Remote Command Output:")
 		fmt.Println(output)
 	},
 }

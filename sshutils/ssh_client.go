@@ -15,7 +15,7 @@ func EstablishSSHConnection(config SSHConfig) (*ssh.Client, error) {
 	sshConfig := &ssh.ClientConfig{
 		User:            config.Username,
 		Auth:            []ssh.AuthMethod{},
-		HostKeyCallback: trustedHostKeyCallback(config.HostKey),
+		HostKeyCallback: trustedHostKeyCallback(),
 	}
 
 	if config.Password != "" {
@@ -44,32 +44,32 @@ func EstablishSSHConnection(config SSHConfig) (*ssh.Client, error) {
 		sshConfig.Auth = append(sshConfig.Auth, ssh.PublicKeysCallback(agentClient.Signers))
 	}
 
-	fmt.Println("Got here")
 	client, err := ssh.Dial("tcp", config.Host+":"+strconv.Itoa(config.Port), sshConfig)
 	if err != nil {
 		return nil, err
 	}
-	fmt.Println("Got here too")
 
 	return client, nil
 }
 
-func trustedHostKeyCallback(trustedKey string) ssh.HostKeyCallback {
+func trustedHostKeyCallback() ssh.HostKeyCallback {
 
-	if trustedKey == "" {
-		return func(_ string, _ net.Addr, k ssh.PublicKey) error {
-			var a []any = []any{"WARNING: SSH-key verification is *NOT* in effect: to fix, add this trustedKey: %q", keyString(k)}
-			fmt.Fprintln(os.Stdout, a...)
-			return nil
-		}
+	known_hosts, err := readKnownHosts()
+
+	if err != nil {
+		fmt.Println("Failed to read known_hosts file")
+		return nil
 	}
 
 	return func(_ string, _ net.Addr, k ssh.PublicKey) error {
-		ks := keyString(k)
-		if trustedKey != ks {
-			return fmt.Errorf("SSH-key verification: expected %q but got %q", trustedKey, ks)
+		for _, v := range known_hosts {
+			if keyString(k) == v {
+				return nil
+			}
 		}
 
+		var a []any = []any{"WARNING: SSH-key verification is *NOT* in effect: to fix, add this trustedKey: %q", keyString(k)}
+		fmt.Fprintln(os.Stdout, a...)
 		return nil
 	}
 }

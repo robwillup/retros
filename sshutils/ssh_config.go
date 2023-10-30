@@ -6,5 +6,4 @@ type SSHConfig struct {
 	Username string
 	Password string
 	KeyPath  string
-	HostKey  string
 }
