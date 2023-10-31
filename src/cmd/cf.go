@@ -43,7 +43,7 @@ rosy cf retropie    Configure RetroPie path`,
 	Run: func(cmd *cobra.Command, args []string) {
 		home := os.Getenv("HOME")
 		conf := sshutils.SSHConfig{
-			KeyPath: home+"/.ssh/id_rsa",
+			KeyPath: home + "/.ssh/id_rsa",
 		}
 
 		fmt.Println("Host IP address:")
@@ -58,7 +58,7 @@ rosy cf retropie    Configure RetroPie path`,
 			log.Fatal("Failed to read username")
 		}
 
-		if config.CreateConfigFile(conf) != nil {
+		if config.Create(conf) != nil {
 			log.Fatal("Failed to create config file")
 			return
 		}

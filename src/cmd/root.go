@@ -63,7 +63,7 @@ func init() {
 }
 
 func checkConfig() {
-	if !config.CheckIfConfigFileExists() {
+	if !config.CheckIfExists() {
 		fmt.Println("RoSy must be configured. Run `rosy cf` and follow the prompts")
 		return
 	}

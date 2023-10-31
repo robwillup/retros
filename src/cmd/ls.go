@@ -44,7 +44,7 @@ rosy ls -p snes		Lists all ROM files under snes/
 		fmt.Println("ROM files found: ")
 		fmt.Println()
 
-		config, err := config.ReadConfigFile()
+		config, err := config.Read()
 
 		if err != nil {
 			log.Fatal("Failed to read config file")
