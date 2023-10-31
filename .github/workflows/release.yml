@@ -1,0 +1,36 @@
+name: Release RoSy
+
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Set up Go
+      uses: actions/setup-go@v2
+      with:
+        go-version: 1.21.3
+
+    - name: Test
+      run: go test -v ./...
+
+    - name: Build Go binary
+      run: go build -v ./...
+
+    - name: Create Release
+      id: create_release
+      uses: softprops/action-gh-release@v1
+      with:
+        files: rosy
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Release URL
+      run: echo "Uploaded release to ${{ steps.create_release.outputs.upload_url }}"
