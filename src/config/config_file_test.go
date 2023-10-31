@@ -53,6 +53,8 @@ func TestCheckIfExists(t *testing.T) {
 	if _, err := os.Stat(home + "/.rosy"); errors.Is(err, os.ErrNotExist) {
 		conf := sshutils.SSHConfig{
 			Host: "test",
+			Username: "test",
+			KeyPath: "test",
 		}
 		err = Create(conf)
 		if err != nil {
