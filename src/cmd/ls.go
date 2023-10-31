@@ -24,10 +24,12 @@ package cmd
 import (
 	"fmt"
 	"log"
+	"path"
 
 	"github.com/robwillup/rosy/src/config"
 	"github.com/robwillup/rosy/src/sshutils"
 	"github.com/spf13/cobra"
+	"golang.org/x/crypto/ssh"
 )
 
 // lsCmd represents the ls command
@@ -44,6 +46,8 @@ rosy ls -p snes		Lists all ROM files under snes/
 		fmt.Println("ROM files found: ")
 		fmt.Println()
 
+		platform, _ := cmd.Flags().GetString("platform")
+
 		config, err := config.Read()
 
 		if err != nil {
@@ -59,32 +63,36 @@ rosy ls -p snes		Lists all ROM files under snes/
 
 		defer client.Close()
 
-		// Define the remote command you want to execute
-		remoteCommand := "ls " + "/home/pi/RetroPie/roms/snes"
+		output, err := listROMFiles(client, platform)
 
-		// Execute the remote command
-		output, err := sshutils.ExecuteRemoteCommand(client, remoteCommand)
 		if err != nil {
-			// Handle error
+			log.Fatalln(err)
 			return
 		}
 
-		// Process the output of the remote command
-		// For example, print it to the console
 		fmt.Println(output)
 	},
 }
 
 func init() {
 	rootCmd.AddCommand(lsCmd)
+	var platform string
+	lsCmd.PersistentFlags().StringVarP(&platform, "platform", "p", "", "The platform for which to list ROM files.")
+}
 
-	// Here you will define your flags and configuration settings.
+func listROMFiles(client *ssh.Client, platform string) (string, error) {
+	romsPath := "/home/pi/RetroPie/roms/"
 
-	// Cobra supports Persistent Flags which will work for this command
-	// and all subcommands, e.g.:
-	// lsCmd.PersistentFlags().String("foo", "", "A help for foo")
+	if platform != "" {
+		romsPath = path.Join(romsPath, platform)
+	}
 
-	// Cobra supports local flags which will only run when this command
-	// is called directly, e.g.:
-	// lsCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+	remoteCommand := "ls " + romsPath
+
+	output, err := sshutils.ExecuteRemoteCommand(client, remoteCommand)
+	if err != nil {
+		return "", err
+	}
+
+	return output, nil
 }
