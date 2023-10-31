@@ -130,6 +130,10 @@ func TestRead(t *testing.T) {
 		t.Fatalf("Failed to remove test file. Error: %v", err)
 	}
 
+	if _, err := os.Stat(home+"/.rosy_bak"); errors.Is(err, os.ErrNotExist) {
+		return
+	}
+
 	err = os.Rename(home+"/.rosy_bak", home+"/.rosy")
 
 	if err != nil {
