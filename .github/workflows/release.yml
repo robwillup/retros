@@ -1,5 +1,8 @@
 name: Release RoSy
 
+permissions:
+    contents: write
+
 on:
   push:
     tags:
@@ -31,7 +34,7 @@ jobs:
       with:
         files: ./bin/rosy
       env:
-        GITHUB_TOKEN: ${{ secrets.RELEASE_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Release URL
       run: echo "Uploaded release to ${{ steps.create_release.outputs.upload_url }}"
