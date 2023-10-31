@@ -23,13 +23,13 @@ jobs:
       run: go test -v ./...
 
     - name: Build Go binary
-      run: go build -v ./...
+      run: go build -o bin/rosy ./src
 
     - name: Create Release
       id: create_release
       uses: softprops/action-gh-release@v1
       with:
-        files: rosy
+        files: ./bin/rosy
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
