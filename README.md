@@ -3,11 +3,13 @@
 RoSy is a CLI tool to help you sync your ROM files with your RetroPie setup
 on a remote machine, e.g.: Raspberry Pi.
 Instead of having to manually copy files into the correct folder, you can simply call
-`rosy cp MyGameROM.a26` and RoSy will do that for you.
+`rosy cp MyGameROM.a26` and RoSy will do the rest for you.
+
+![example workflow](https://github.com/robwillup/rosy/actions/workflows/build.yml/badge.svg)
 
 ## Download
 
-You can simply download the latest binary from [releases](https://github.com/robwillup/rosy/releases) or use one of the commands below:
+You can download the latest binary from [releases](https://github.com/robwillup/rosy/releases) or use one of the commands below:
 
 ```bash
 # Linux | wget
@@ -36,22 +38,22 @@ These are the commands currently being implemented.
 Adding ROM files to RetroPie:
 
 ```bash
-rosy cp Game.md
+./rosy cp Game.md
 ```
 
 The ROM will be added to the corresponding folder in RetroPie based on
-the ROM file extension, in the cases above `/genesis`.
+the ROM file extension, in the case above `/genesis`.
 
 ## List
 
 Lists the ROM files in RetroPie:
 
 ```bash
-rosy ls
+./rosy ls
 ```
 
 To list ROM files for specific platforms:
 
 ```bash
-rosy ls -p mastersystem
+./rosy ls -p mastersystem
 ```
