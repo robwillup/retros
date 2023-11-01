@@ -14,6 +14,8 @@ func FindPlatformFromExtension(romFile string) string {
 			return "gba"
 		case ".a26":
 			return "atari2600"
+		case ".32x":
+			return "sega32x"
 		default:
 			return ""
 	}
