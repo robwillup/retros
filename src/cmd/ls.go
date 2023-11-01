@@ -29,7 +29,6 @@ import (
 	"github.com/robwillup/rosy/src/config"
 	"github.com/robwillup/rosy/src/sshutils"
 	"github.com/spf13/cobra"
-	"golang.org/x/crypto/ssh"
 )
 
 // lsCmd represents the ls command
@@ -39,8 +38,8 @@ var lsCmd = &cobra.Command{
 	Long: `Lists ROM files in the remote machine where RetroPie is installed.
 For example:
 
-rosy ls				Lists all ROM files
-rosy ls -p snes		Lists all ROM files under snes/
+rosy ls             Lists all ROM files
+rosy ls -p snes     Lists all ROM files under snes/
 `,
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("ROM files found: ")
@@ -48,22 +47,7 @@ rosy ls -p snes		Lists all ROM files under snes/
 
 		platform, _ := cmd.Flags().GetString("platform")
 
-		config, err := config.Read()
-
-		if err != nil {
-			log.Fatal("Failed to read config file")
-			return
-		}
-
-		client, err := sshutils.EstablishSSHConnection(config)
-		if err != nil {
-			fmt.Println(err.Error())
-			return
-		}
-
-		defer client.Close()
-
-		output, err := listROMFiles(client, platform)
+		output, err := listROMFiles(platform)
 
 		if err != nil {
 			log.Fatalln(err)
@@ -80,8 +64,23 @@ func init() {
 	lsCmd.PersistentFlags().StringVarP(&platform, "platform", "p", "", "The platform for which to list ROM files.")
 }
 
-func listROMFiles(client *ssh.Client, platform string) (string, error) {
+func listROMFiles(platform string) (string, error) {
 	romsPath := "/home/pi/RetroPie/roms/"
+
+	config, err := config.Read()
+
+	if err != nil {
+		log.Fatal("Failed to read config file")
+		return "", nil
+	}
+
+	client, err := sshutils.EstablishSSHConnection(config)
+	if err != nil {
+		fmt.Println(err.Error())
+		return "", nil
+	}
+
+	defer client.Close()
 
 	if platform != "" {
 		romsPath = path.Join(romsPath, platform)

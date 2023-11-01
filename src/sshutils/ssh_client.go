@@ -3,10 +3,12 @@ package sshutils
 import (
 	"encoding/base64"
 	"fmt"
+	"io"
 	"net"
 	"os"
 	"strconv"
 
+	"github.com/pkg/sftp"
 	"golang.org/x/crypto/ssh"
 	"golang.org/x/crypto/ssh/agent"
 )
@@ -77,18 +79,50 @@ func keyString(k ssh.PublicKey) string {
 }
 
 func ExecuteRemoteCommand(client *ssh.Client, command string) (string, error) {
-    // Create a new SSH session
-    session, err := client.NewSession()
-    if err != nil {
-        return "", err
-    }
-    defer session.Close()
+	session, err := client.NewSession()
+	if err != nil {
+		return "", err
+	}
+	defer session.Close()
 
-    // Run the remote command
-    output, err := session.CombinedOutput(command)
-    if err != nil {
-        return "", err
-    }
+	output, err := session.CombinedOutput(command)
+	if err != nil {
+		return "", err
+	}
 
-    return string(output), nil
+	return string(output), nil
+}
+
+func CopyROMToRemote(client *ssh.Client, localFilePath, remoteFilePath string) error {
+	sftpClient, err := sftp.NewClient(client)
+
+	if err != nil {
+		return err
+	}
+
+	defer sftpClient.Close()
+
+	localFile, err := os.Open(localFilePath)
+
+	if err != nil {
+		return err
+	}
+
+	defer localFile.Close()
+
+	remoteFile, err := sftpClient.Create(remoteFilePath)
+
+	if err != nil {
+		return err
+	}
+
+	defer remoteFile.Close()
+
+	_, err = io.Copy(remoteFile, localFile)
+
+	if err != nil {
+		return err
+	}
+
+	return nil
 }

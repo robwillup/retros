@@ -14,9 +14,9 @@ func TestCreate(t *testing.T) {
 	// Arrange
 	home := os.Getenv("HOME")
 	conf := sshutils.SSHConfig{
-		Host: "test",
+		Host:     "test",
 		Username: "test",
-		KeyPath: "test",
+		KeyPath:  "test",
 	}
 
 	if CheckIfExists() {
@@ -52,9 +52,9 @@ func TestCheckIfExists(t *testing.T) {
 
 	if _, err := os.Stat(home + "/.rosy"); errors.Is(err, os.ErrNotExist) {
 		conf := sshutils.SSHConfig{
-			Host: "test",
+			Host:     "test",
 			Username: "test",
-			KeyPath: "test",
+			KeyPath:  "test",
 		}
 		err = Create(conf)
 		if err != nil {
@@ -98,9 +98,9 @@ func TestRead(t *testing.T) {
 	}
 
 	expected := sshutils.SSHConfig{
-		Host: "test",
+		Host:     "test",
 		Username: "test",
-		KeyPath: "test",
+		KeyPath:  "test",
 	}
 
 	err := Create(expected)
@@ -124,13 +124,13 @@ func TestRead(t *testing.T) {
 	}
 
 	// Clean up
-	err = os.Remove(home+"/.rosy")
+	err = os.Remove(home + "/.rosy")
 
 	if err != nil {
 		t.Fatalf("Failed to remove test file. Error: %v", err)
 	}
 
-	if _, err := os.Stat(home+"/.rosy_bak"); errors.Is(err, os.ErrNotExist) {
+	if _, err := os.Stat(home + "/.rosy_bak"); errors.Is(err, os.ErrNotExist) {
 		return
 	}
 

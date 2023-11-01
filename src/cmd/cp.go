@@ -23,7 +23,13 @@ package cmd
 
 import (
 	"fmt"
+	"log"
+	"path"
+	"path/filepath"
 
+	"github.com/robwillup/rosy/src/config"
+	"github.com/robwillup/rosy/src/platform"
+	"github.com/robwillup/rosy/src/sshutils"
 	"github.com/spf13/cobra"
 )
 
@@ -39,20 +45,51 @@ rosy cp Game.md
 
 copies Game.md to $HOME/RetroPie/roms/genesis.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("cp called")
+		if len(args) < 1 {
+			log.Fatalln("Path to local ROM file is required.")
+		}
+
+		fmt.Println("Copying ROM file")
+		fmt.Println()
+
+		err := copyROMFile(args[0])
+
+		if err != nil {
+			log.Fatalf("Failed to copy ROM file. Error: %v", err)
+		}
 	},
 }
 
 func init() {
 	rootCmd.AddCommand(cpCmd)
+}
 
-	// Here you will define your flags and configuration settings.
+func copyROMFile(romFile string) error {
+	romsPath := "/home/pi/RetroPie/roms/"
 
-	// Cobra supports Persistent Flags which will work for this command
-	// and all subcommands, e.g.:
-	// cpCmd.PersistentFlags().String("foo", "", "A help for foo")
+	plat := platform.FindPlatformFromExtension(romFile)
 
-	// Cobra supports local flags which will only run when this command
-	// is called directly, e.g.:
-	// cpCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+	romsPath = path.Join(romsPath, plat, filepath.Base(romFile))
+
+	config, err := config.Read()
+
+	if err != nil {
+		log.Fatal("Failed to read config file")
+		return nil
+	}
+
+	client, err := sshutils.EstablishSSHConnection(config)
+
+	if err != nil {
+		fmt.Println(err.Error())
+		return nil
+	}
+
+	err = sshutils.CopyROMToRemote(client, romFile, romsPath)
+
+	if err != nil {
+		return err
+	}
+
+	return nil
 }

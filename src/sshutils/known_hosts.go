@@ -10,7 +10,7 @@ import (
 func readKnownHosts() ([]string, error) {
 	known_hosts := []string{}
 	home := os.Getenv("HOME")
-	file, err := os.Open(home+"/.ssh/known_hosts")
+	file, err := os.Open(home + "/.ssh/known_hosts")
 
 	if err != nil {
 		return nil, err
