@@ -1,41 +1,48 @@
 # RoSy
 
-ROM Sync for RetroPie through SSH
+RoSy is a CLI tool to help you sync your ROM files with your RetroPie setup
+on a remote machine, e.g.: Raspberry Pi.
+Instead of having to manually copy files into the correct folder, you can simply call
+`rosy cp MyGameROM.a26` and RoSy will do that for you.
 
-## Features
+## Download
 
-* Copies ROM files
-* Lists ROM files
-* Removes ROM files
-* Compares ROM files
-* Verifies Checksum of ROM files
-* Syncs ROM files
+You can simply download the latest binary from [releases](https://github.com/robwillup/rosy/releases) or use one of the commands below:
 
-## Commands
+```bash
+# Linux | wget
+wget https://github.com/robwillup/rosy/releases/download/v1.0.0/rosy && chmod +x rosy
+
+# Linux | cURL
+curl -L https://github.com/robwillup/rosy/releases/download/v1.0.0/rosy -o rosy && chmod +x rosy
+```
+
+## Setup
+
+RoSy will need the `host (IP address)` and the `username` of the remote machine where RetroPie is running. You can configure that by running:
+
+```bash
+./rosy cf
+```
+
+RoSy assumes your `SSH private key` is in the default path, i.e.: `$HOME/.ssh/id_rsa`.
+
+## Operations
 
 These are the commands currently being implemented.
 
-### cp
+### Copy
 
 Adding ROM files to RetroPie:
 
 ```bash
 rosy cp Game.md
-
-# or multiple ROM files
-rosy cp Game.md OtherGame.sfc
 ```
 
 The ROM will be added to the corresponding folder in RetroPie based on
-the ROM file extension, in the cases above Mega Drive/Genesis and SNES.
+the ROM file extension, in the cases above `/genesis`.
 
-To force overwrite:
-
-```bash
-rosy cp -f Game.md
-```
-
-## ls
+## List
 
 Lists the ROM files in RetroPie:
 
@@ -47,44 +54,4 @@ To list ROM files for specific platforms:
 
 ```bash
 rosy ls -p mastersystem
-```
-
-## rm
-
-Removes ROM files from RetroPie:
-
-```bash
-rosy rm Game.ms
-```
-
-Removes a ROM file only if a copy exists locally:
-
-```bash
-rosy rm -s Game.ms
-```
-
-## diff
-
-Compares two ROM files:
-
-```bash
-rosy diff Game.gba Game.gba
-```
-
-The first ROM file is in the local system and the second in RetroPie.
-
-## cs
-
-Verifies the integrity of a ROM file using the checksum:
-
-```bash
-rosy cs Game.ms
-```
-
-## Sync
-
-Copies missing verified ROM files from the local system to RetroPie:
-
-```bash
-rosy sync
 ```
