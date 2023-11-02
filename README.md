@@ -7,6 +7,8 @@ Instead of having to manually copy files into the correct folder, you can simply
 
 ![example workflow](https://github.com/robwillup/rosy/actions/workflows/build.yml/badge.svg)
 
+<img src="https://repository-images.githubusercontent.com/709978523/5298bcc2-e191-46a5-a5f7-1bda2c7f8075" alt="RoSy" style="width: 500px; display: block; margin-left: auto; margin-right: auto"/>
+
 ## Download
 
 You can download the latest binary from [releases](https://github.com/robwillup/rosy/releases) or use one of the commands below:
