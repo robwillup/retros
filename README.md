@@ -26,7 +26,7 @@ curl -L https://github.com/robwillup/rosy/releases/download/v1.0.0/rosy -o rosy 
 ### Windows
 
 ```powershell
-Invoke-WebRequest -Uri "https://github.com/robwillup/rosy/releases/download/v1.0.0/rosy.exe" -OutFile "rosy.exe"
+iwr "https://github.com/robwillup/rosy/releases/download/v1.0.0/rosy.exe" -o "rosy.exe"
 ```
 
 ## Setup
