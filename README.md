@@ -5,7 +5,11 @@ on a remote machine, e.g.: Raspberry Pi.
 Instead of having to manually copy files into the correct folder, you can simply call
 `rosy cp MyGameROM.a26` and RoSy will do the rest for you.
 
-![example workflow](https://github.com/robwillup/rosy/actions/workflows/build.yml/badge.svg)
+![build workflow](https://github.com/robwillup/rosy/actions/workflows/build.yml/badge.svg)
+![Latest Release](https://img.shields.io/github/v/release/robwillup/rosy?label=Rosy%20(Linux%20binary)&sort=semver)
+![Latest Release](https://img.shields.io/github/v/release/robwillup/rosy?label=Rosy%20(Windows%20binary)&sort=semver)
+
+
 
 <div align="center">
     <img src="https://repository-images.githubusercontent.com/709978523/5298bcc2-e191-46a5-a5f7-1bda2c7f8075" alt="RoSy" style="width: 600px;"/>
