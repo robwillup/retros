@@ -11,12 +11,22 @@ Instead of having to manually copy files into the correct folder, you can simply
 
 You can download the latest binary from [releases](https://github.com/robwillup/rosy/releases) or use one of the commands below:
 
-```bash
-# Linux | wget
-wget https://github.com/robwillup/rosy/releases/download/v1.0.0/rosy && chmod +x rosy
+### Linux
 
-# Linux | cURL
+```bash
+# wget
+wget https://github.com/robwillup/rosy/releases/download/v1.0.0/rosy && chmod +x rosy
+```
+
+```bash
+# cURL
 curl -L https://github.com/robwillup/rosy/releases/download/v1.0.0/rosy -o rosy && chmod +x rosy
+```
+
+### Windows
+
+```powershell
+Invoke-WebRequest -Uri "https://github.com/robwillup/rosy/releases/download/v1.0.0/rosy.exe" -OutFile "rosy.exe"
 ```
 
 ## Setup
