@@ -25,14 +25,17 @@ jobs:
     - name: Test
       run: go test -v ./...
 
-    - name: Build Go binary
+    - name: Build Go binary for Linux
       run: go build -o bin/rosy ./src
+
+    - name: Build Go binary for Windows
+      run: GOOS=windows go build -o bin/rosy.exe ./src
 
     - name: Create Release
       id: create_release
       uses: softprops/action-gh-release@v1
       with:
-        files: ./bin/rosy
+        files: ./bin/rosy, ./bin/rosy.exe
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
