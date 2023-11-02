@@ -6,13 +6,14 @@ import (
 	"os"
 	"testing"
 
+	"github.com/robwillup/rosy/src/clientos"
 	"github.com/robwillup/rosy/src/sshutils"
 )
 
 // Calls config.Create checking if the config file `.rosy` is created.
 func TestCreate(t *testing.T) {
 	// Arrange
-	home := os.Getenv("HOME")
+	home := clientos.GetHomeDir()
 	conf := sshutils.SSHConfig{
 		Host:     "test",
 		Username: "test",
@@ -48,7 +49,7 @@ func TestCreate(t *testing.T) {
 func TestCheckIfExists(t *testing.T) {
 	// Arrange
 	expected := true
-	home := os.Getenv("HOME")
+	home := clientos.GetHomeDir()
 
 	if _, err := os.Stat(home + "/.rosy"); errors.Is(err, os.ErrNotExist) {
 		conf := sshutils.SSHConfig{
@@ -86,7 +87,7 @@ func TestCheckIfExists(t *testing.T) {
 // Calls config.Read checking if the configuration returned is correct.
 func TestRead(t *testing.T) {
 	// Arrange
-	home := os.Getenv("HOME")
+	home := clientos.GetHomeDir()
 
 	if CheckIfExists() {
 		err := os.Rename(home+"/.rosy", home+"/.rosy_bak")

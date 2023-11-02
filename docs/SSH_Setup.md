@@ -27,6 +27,8 @@ key pair in the `~/.ssh` directory.
 
 ### Authorizing the Public Key
 
+Copy the public key on your machine to `.ssh/authorized_keys` on the remote machine.
+
 ```bash
 cat ~/.ssh/id_rsa.pub >> ~/.ssh/authorized_keys
 ```

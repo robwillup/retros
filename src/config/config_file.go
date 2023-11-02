@@ -5,6 +5,7 @@ import (
 	"errors"
 	"os"
 
+	"github.com/robwillup/rosy/src/clientos"
 	"github.com/robwillup/rosy/src/sshutils"
 )
 
@@ -21,8 +22,9 @@ func Create(config sshutils.SSHConfig) error {
 		return errors.New("KeyPath is required")
 	}
 
-	home := os.Getenv("HOME")
+	home := clientos.GetHomeDir()
 	f, err := os.Create(home + "/.rosy")
+
 	if err != nil {
 		return err
 	}
@@ -48,7 +50,7 @@ func Create(config sshutils.SSHConfig) error {
 }
 
 func CheckIfExists() bool {
-	home := os.Getenv("HOME")
+	home := clientos.GetHomeDir()
 	if _, err := os.Stat(home + "/.rosy"); errors.Is(err, os.ErrNotExist) {
 		return false
 	}
@@ -59,7 +61,7 @@ func CheckIfExists() bool {
 func Read() (sshutils.SSHConfig, error) {
 	configValues := []string{}
 	config := sshutils.SSHConfig{}
-	home := os.Getenv("HOME")
+	home := clientos.GetHomeDir()
 	file, err := os.Open(home + "/.rosy")
 	if err != nil {
 		return config, err

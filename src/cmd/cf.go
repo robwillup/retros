@@ -24,8 +24,8 @@ package cmd
 import (
 	"fmt"
 	"log"
-	"os"
 
+	"github.com/robwillup/rosy/src/clientos"
 	"github.com/robwillup/rosy/src/config"
 	"github.com/robwillup/rosy/src/sshutils"
 	"github.com/spf13/cobra"
@@ -40,8 +40,10 @@ For example:
 
 rosy cf ssh         Configure SSH username, host, key path, etc.
 rosy cf retropie    Configure RetroPie path`,
+
 	Run: func(cmd *cobra.Command, args []string) {
-		home := os.Getenv("HOME")
+		home := clientos.GetHomeDir()
+
 		conf := sshutils.SSHConfig{
 			KeyPath: home + "/.ssh/id_rsa",
 		}
@@ -67,14 +69,4 @@ rosy cf retropie    Configure RetroPie path`,
 
 func init() {
 	rootCmd.AddCommand(cfCmd)
-
-	// Here you will define your flags and configuration settings.
-
-	// Cobra supports Persistent Flags which will work for this command
-	// and all subcommands, e.g.:
-	// cfCmd.PersistentFlags().String("foo", "", "A help for foo")
-
-	// Cobra supports local flags which will only run when this command
-	// is called directly, e.g.:
-	// cfCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
 }

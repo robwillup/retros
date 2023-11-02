@@ -4,12 +4,15 @@ import (
 	"bufio"
 	"fmt"
 	"os"
-	"strings"
+
+	"github.com/robwillup/rosy/src/clientos"
 )
 
+// TODO: This function simply returns every line in `.ssh/known_hosts`.
+// Improve it so it only returns hosts.
 func readKnownHosts() ([]string, error) {
 	known_hosts := []string{}
-	home := os.Getenv("HOME")
+	home := clientos.GetHomeDir()
 	file, err := os.Open(home + "/.ssh/known_hosts")
 
 	if err != nil {
@@ -20,10 +23,7 @@ func readKnownHosts() ([]string, error) {
 
 	scanner := bufio.NewScanner(file)
 	for scanner.Scan() {
-		if strings.HasPrefix(scanner.Text(), "|1|") {
-			host := scanner.Text()[61:len(scanner.Text())]
-			known_hosts = append(known_hosts, host)
-		}
+		known_hosts = append(known_hosts, scanner.Text())
 	}
 
 	if err := scanner.Err(); err != nil {

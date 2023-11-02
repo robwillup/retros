@@ -7,6 +7,7 @@ import (
 	"net"
 	"os"
 	"strconv"
+	"strings"
 
 	"github.com/pkg/sftp"
 	"golang.org/x/crypto/ssh"
@@ -22,25 +23,32 @@ func EstablishSSHConnection(config SSHConfig) (*ssh.Client, error) {
 
 	if config.KeyPath != "" {
 		key, err := os.ReadFile(config.KeyPath)
+
 		if err != nil {
 			return nil, err
 		}
+
 		signer, err := ssh.ParsePrivateKey(key)
+
 		if err != nil {
 			return nil, err
 		}
+
 		sshConfig.Auth = append(sshConfig.Auth, ssh.PublicKeys(signer))
 	} else {
 		socket := os.Getenv("SSH_AUTH_SOCKET")
 		conn, err := net.Dial("unix", socket)
+
 		if err != nil {
 			return nil, err
 		}
 
 		agentClient := agent.NewClient(conn)
+
 		if err != nil {
 			return nil, err
 		}
+
 		sshConfig.Auth = append(sshConfig.Auth, ssh.PublicKeysCallback(agentClient.Signers))
 	}
 
@@ -63,7 +71,7 @@ func trustedHostKeyCallback() ssh.HostKeyCallback {
 
 	return func(_ string, _ net.Addr, k ssh.PublicKey) error {
 		for _, v := range known_hosts {
-			if keyString(k) == v {
+			if strings.Contains(v, keyString(k)) {
 				return nil
 			}
 		}
