@@ -7,7 +7,9 @@ Instead of having to manually copy files into the correct folder, you can simply
 
 ![example workflow](https://github.com/robwillup/rosy/actions/workflows/build.yml/badge.svg)
 
-<img src="https://repository-images.githubusercontent.com/709978523/5298bcc2-e191-46a5-a5f7-1bda2c7f8075" alt="RoSy" style="width: 500px; display: block; margin-left: auto; margin-right: auto"/>
+<div align="center">
+    <img src="https://repository-images.githubusercontent.com/709978523/5298bcc2-e191-46a5-a5f7-1bda2c7f8075" alt="RoSy" style="width: 600px;"/>
+</div>
 
 ## Download
 
