@@ -42,7 +42,7 @@ iwr "https://github.com/robwillup/rosy/releases/download/v1.0.0/rosy.exe" -o "ro
 RoSy will need the `host (IP address)` and the `username` of the remote machine where RetroPie is running. You can configure that by running:
 
 ```bash
-./rosy cf
+rosy cf
 ```
 
 RoSy assumes your `SSH private key` is in the default path, i.e.: `$HOME/.ssh/id_rsa`.
