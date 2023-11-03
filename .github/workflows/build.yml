@@ -13,6 +13,8 @@ jobs:
 
   build:
     runs-on: ubuntu-latest
+    env:
+      GO111MODULE: on
     steps:
     - uses: actions/checkout@v3
 
@@ -26,3 +28,8 @@ jobs:
 
     - name: Test
       run: go test -v ./...
+
+    - name: Run Gosec Security Scanner
+      uses: securego/gosec@master
+      with:
+        args: ./...

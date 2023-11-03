@@ -9,8 +9,6 @@ Instead of having to manually copy files into the correct folder, you can simply
 ![Latest Release](https://img.shields.io/github/v/release/robwillup/rosy?label=Rosy%20(Linux%20binary)&sort=semver)
 ![Latest Release](https://img.shields.io/github/v/release/robwillup/rosy?label=Rosy%20(Windows%20binary)&sort=semver)
 
-
-
 <div align="center">
     <img src="https://repository-images.githubusercontent.com/709978523/5298bcc2-e191-46a5-a5f7-1bda2c7f8075" alt="RoSy" style="width: 600px;"/>
 </div>
