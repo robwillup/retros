@@ -25,10 +25,12 @@ import (
 	"fmt"
 	"log"
 	"path"
+	"strings"
 
 	"github.com/robwillup/rosy/src/config"
 	"github.com/robwillup/rosy/src/sshutils"
 	"github.com/spf13/cobra"
+	"golang.org/x/crypto/ssh"
 )
 
 // lsCmd represents the ls command
@@ -39,7 +41,7 @@ var lsCmd = &cobra.Command{
 For example:
 
 rosy ls             Lists all ROM files
-rosy ls -p snes     Lists all ROM files under snes/
+rosy ls -p=snes     Lists all ROM files under snes/
 `,
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("ROM files found: ")
@@ -70,25 +72,59 @@ func listROMFiles(platform string) (string, error) {
 	config, err := config.Read()
 
 	if err != nil {
-		log.Fatal("Failed to read config file")
-		return "", nil
+		return "", err
 	}
 
 	client, err := sshutils.EstablishSSHConnection(config)
 	if err != nil {
-		fmt.Println(err.Error())
-		return "", nil
+		return "", err
 	}
-
-	defer client.Close()
 
 	if platform != "" {
-		romsPath = path.Join(romsPath, platform)
+		output, err := runLs(path.Join(romsPath, platform), client)
+
+		if err != nil {
+			return "", err
+		}
+
+		return output, nil
 	}
 
-	remoteCommand := "ls " + romsPath
+	output, err := runLs(romsPath, client)
 
-	output, err := sshutils.ExecuteRemoteCommand(client, remoteCommand)
+	if err != nil {
+		return "", err
+	}
+
+	platforms := strings.Split(output, "\n")
+	output = ""
+
+	var sb strings.Builder
+
+	for _, plat := range platforms {
+		if plat != "" {
+			output, err = runLs(path.Join(romsPath, plat), client)
+
+			if err != nil {
+				return "", err
+			}
+
+			if output != "" {
+				sb.WriteString(fmt.Sprintf("%s\n\n", strings.ToUpper(plat)))
+				sb.WriteString(fmt.Sprintf("%s\n", output))
+				sb.WriteString("====================================================\n")
+			}
+		}
+	}
+
+	return sb.String(), nil
+}
+
+func runLs(dirPath string, client *ssh.Client) (string, error) {
+	cmd := "ls " + dirPath
+
+	output, err := sshutils.ExecuteRemoteCommand(client, cmd)
+
 	if err != nil {
 		return "", err
 	}
