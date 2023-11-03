@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"errors"
 	"os"
+	"path/filepath"
 
 	"github.com/robwillup/rosy/src/clientos"
 	"github.com/robwillup/rosy/src/sshutils"
@@ -23,7 +24,7 @@ func Create(config sshutils.SSHConfig) error {
 	}
 
 	home := clientos.GetHomeDir()
-	f, err := os.Create(home + "/.rosy")
+	f, err := os.Create(filepath.Clean(home + "/.rosy"))
 
 	if err != nil {
 		return err
@@ -62,7 +63,7 @@ func Read() (sshutils.SSHConfig, error) {
 	configValues := []string{}
 	config := sshutils.SSHConfig{}
 	home := clientos.GetHomeDir()
-	file, err := os.Open(home + "/.rosy")
+	file, err := os.Open(filepath.Clean(home + "/.rosy"))
 	if err != nil {
 		return config, err
 	}

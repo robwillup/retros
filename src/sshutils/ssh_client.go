@@ -6,6 +6,7 @@ import (
 	"io"
 	"net"
 	"os"
+	"path/filepath"
 	"strconv"
 	"strings"
 
@@ -110,7 +111,7 @@ func CopyROMToRemote(client *ssh.Client, localFilePath, remoteFilePath string) e
 
 	defer sftpClient.Close()
 
-	localFile, err := os.Open(localFilePath)
+	localFile, err := os.Open(filepath.Clean(localFilePath))
 
 	if err != nil {
 		return err

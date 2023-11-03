@@ -4,6 +4,7 @@ import (
 	"bufio"
 	"fmt"
 	"os"
+	"path/filepath"
 
 	"github.com/robwillup/rosy/src/clientos"
 )
@@ -13,7 +14,7 @@ import (
 func readKnownHosts() ([]string, error) {
 	known_hosts := []string{}
 	home := clientos.GetHomeDir()
-	file, err := os.Open(home + "/.ssh/known_hosts")
+	file, err := os.Open(filepath.Clean(home + "/.ssh/known_hosts"))
 
 	if err != nil {
 		return nil, err
