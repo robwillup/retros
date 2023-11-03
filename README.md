@@ -56,7 +56,7 @@ These are the commands currently being implemented.
 Adding ROM files to RetroPie:
 
 ```bash
-./rosy cp Game.md
+rosy cp Game.md
 ```
 
 The ROM will be added to the corresponding folder in RetroPie based on
@@ -67,11 +67,11 @@ the ROM file extension, in the case above `/genesis`.
 Lists the ROM files in RetroPie:
 
 ```bash
-./rosy ls
+rosy ls
 ```
 
 To list ROM files for specific platforms:
 
 ```bash
-./rosy ls -p mastersystem
+rosy ls -p=mastersystem
 ```
