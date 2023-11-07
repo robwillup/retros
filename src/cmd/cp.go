@@ -28,6 +28,7 @@ import (
 	"path/filepath"
 
 	"github.com/robwillup/rosy/src/config"
+	"github.com/robwillup/rosy/src/filesystem"
 	"github.com/robwillup/rosy/src/platform"
 	"github.com/robwillup/rosy/src/sshutils"
 	"github.com/spf13/cobra"
@@ -49,10 +50,10 @@ copies Game.md to $HOME/RetroPie/roms/genesis.`,
 			log.Fatalln("Path to local ROM file is required.")
 		}
 
-		fmt.Println("Copying ROM file")
+		fmt.Println("Copying ROM files")
 		fmt.Println()
 
-		err := copyROMFile(args[0])
+		err := copy(args[0])
 
 		if err != nil {
 			log.Fatalf("Failed to copy ROM file. Error: %v", err)
@@ -62,6 +63,42 @@ copies Game.md to $HOME/RetroPie/roms/genesis.`,
 
 func init() {
 	rootCmd.AddCommand(cpCmd)
+}
+
+func copy(fsPath string) error {
+	isDir, err := filesystem.CheckDir(fsPath)
+
+	if err != nil {
+		return err
+	}
+
+	if isDir {
+		files, err := filesystem.GetFiles(fsPath)
+
+		if err != nil {
+			return err
+		}
+
+		if len(files) > 0 {
+			for _, file := range files {
+				err := copyROMFile(path.Join(fsPath, file))
+
+				if err != nil {
+					return err
+				}
+			}
+		}
+
+		return nil
+	}
+
+	err = copyROMFile(fsPath)
+
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
 
 func copyROMFile(romFile string) error {
