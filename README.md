@@ -13,6 +13,7 @@ call `rosy cp MyGameROM.a26` and RoSy will do the rest for you.
     <img
         src="https://repository-images.githubusercontent.com/709978523/5298bcc2-e191-46a5-a5f7-1bda2c7f8075"
         alt="RoSy" style="width: 600px;"/>
+        <p>Image by @robwillup<p>
 </div>
 
 ## Download
@@ -57,7 +58,7 @@ These are the commands currently being implemented.
 
 ### Copy
 
-Adding ROM files to RetroPie:
+Adding a single ROM file to RetroPie:
 
 ```bash
 rosy cp Game.md
@@ -65,6 +66,24 @@ rosy cp Game.md
 
 The ROM will be added to the corresponding folder in RetroPie based on
 the ROM file extension, in the case above `/genesis`.
+
+Adding all ROM files in a directory:
+
+```bash
+rosy cp /home/gamer/roms
+```
+
+All ROM files in the provided directory will be copied to their respective
+platforms in RetroPie based on the file extensions.
+
+#### Specifying the platform
+
+If a ROM file has a different extension, you can copy it by
+specifying the platform it should go into:
+
+```bash
+rosy cp --platform=atari2600 Game.bin
+```
 
 ## List
 
