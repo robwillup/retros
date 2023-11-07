@@ -53,7 +53,13 @@ copies Game.md to $HOME/RetroPie/roms/genesis.`,
 		fmt.Println("Copying ROM files")
 		fmt.Println()
 
-		err := copy(args[0])
+		platform, err := cmd.Flags().GetString("platform")
+
+		if err != nil {
+			log.Fatalln(err)
+		}
+
+		err = copy(args[0], platform)
 
 		if err != nil {
 			log.Fatalf("Failed to copy ROM file. Error: %v", err)
@@ -63,9 +69,11 @@ copies Game.md to $HOME/RetroPie/roms/genesis.`,
 
 func init() {
 	rootCmd.AddCommand(cpCmd)
+	var platform string
+	cpCmd.PersistentFlags().StringVarP(&platform, "platform", "p", "", "The platform where the ROM file(s) will be copied to")
 }
 
-func copy(fsPath string) error {
+func copy(fsPath, platform string) error {
 	isDir, err := filesystem.CheckDir(fsPath)
 
 	if err != nil {
@@ -81,7 +89,7 @@ func copy(fsPath string) error {
 
 		if len(files) > 0 {
 			for _, file := range files {
-				err := copyROMFile(path.Join(fsPath, file))
+				err := copyROMFile(path.Join(fsPath, file), platform)
 
 				if err != nil {
 					return err
@@ -92,7 +100,7 @@ func copy(fsPath string) error {
 		return nil
 	}
 
-	err = copyROMFile(fsPath)
+	err = copyROMFile(fsPath, platform)
 
 	if err != nil {
 		return err
@@ -101,10 +109,12 @@ func copy(fsPath string) error {
 	return nil
 }
 
-func copyROMFile(romFile string) error {
+func copyROMFile(romFile, plat string) error {
 	romsPath := "/home/pi/RetroPie/roms/"
 
-	plat := platform.FindPlatformFromExtension(romFile)
+	if plat == "" {
+		plat = platform.FindPlatformFromExtension(romFile)
+	}
 
 	romsPath = path.Join(romsPath, plat, filepath.Base(romFile))
 

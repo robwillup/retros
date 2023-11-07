@@ -47,7 +47,11 @@ rosy ls -p=snes     Lists all ROM files under snes/
 		fmt.Println("ROM files found: ")
 		fmt.Println()
 
-		platform, _ := cmd.Flags().GetString("platform")
+		platform, err := cmd.Flags().GetString("platform")
+
+		if err != nil {
+			log.Fatalln(err)
+		}
 
 		output, err := listROMFiles(platform)
 
