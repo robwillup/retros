@@ -1,8 +1,19 @@
 package sshutils
 
-import "testing"
+import (
+	"errors"
+	"os"
+	"testing"
+
+	"github.com/robwillup/rosy/src/clientos"
+)
 
 func TestReadKnownHosts(t *testing.T) {
+	home := clientos.GetHomeDir()
+	if _, err := os.Stat(home + "/.ssh/known_hosts"); errors.Is(err, os.ErrNotExist) {
+		return
+	}
+
 	actual, err := readKnownHosts()
 
 	if err != nil {
