@@ -1,10 +1,10 @@
-package platform
+package emulators
 
 import "testing"
 
 func TestFindPlatformFromExtension(t *testing.T) {
 	expected := "snes"
-	actual := FindPlatformFromExtension("C:\\Users\\Gamer\\ReallyCoolGame.sfc")
+	actual := FindEmulatorFromExtension("C:\\Users\\Gamer\\ReallyCoolGame.sfc")
 
 	if expected != actual {
 		t.Fatalf("Failed to FindPlatformFromExtension().\nexpected: %s\nactual: %s", expected, actual)
@@ -12,7 +12,7 @@ func TestFindPlatformFromExtension(t *testing.T) {
 	}
 
 	expected = "genesis"
-	actual = FindPlatformFromExtension("gamer/games/ReallyHardGame.md")
+	actual = FindEmulatorFromExtension("gamer/games/ReallyHardGame.md")
 
 	if expected != actual {
 		t.Fatalf("Failed to FindPlatformFromExtension().\nexpected: %s\nactual: %s", expected, actual)
@@ -20,7 +20,7 @@ func TestFindPlatformFromExtension(t *testing.T) {
 	}
 
 	expected = "mastersystem"
-	actual = FindPlatformFromExtension("/home/gamer/ReallyNostalgicGame.sms")
+	actual = FindEmulatorFromExtension("/home/gamer/ReallyNostalgicGame.sms")
 
 	if expected != actual {
 		t.Fatalf("Failed to FindPlatformFromExtension().\nexpected: %s\nactual: %s", expected, actual)
@@ -28,7 +28,7 @@ func TestFindPlatformFromExtension(t *testing.T) {
 	}
 
 	expected = "gba"
-	actual = FindPlatformFromExtension("C:\\Users\\Gamer\\ReallyShortGame.gba")
+	actual = FindEmulatorFromExtension("C:\\Users\\Gamer\\ReallyShortGame.gba")
 
 	if expected != actual {
 		t.Fatalf("Failed to FindPlatformFromExtension().\nexpected: %s\nactual: %s", expected, actual)
@@ -36,7 +36,7 @@ func TestFindPlatformFromExtension(t *testing.T) {
 	}
 
 	expected = "atari2600"
-	actual = FindPlatformFromExtension("C:\\Users\\Gamer\\ReallyOld.a26")
+	actual = FindEmulatorFromExtension("C:\\Users\\Gamer\\ReallyOld.a26")
 
 	if expected != actual {
 		t.Fatalf("Failed to FindPlatformFromExtension().\nexpected: %s\nactual: %s", expected, actual)
@@ -44,7 +44,7 @@ func TestFindPlatformFromExtension(t *testing.T) {
 	}
 
 	expected = "sega32x"
-	actual = FindPlatformFromExtension("/home/gamer/ReallyRareGame.32x")
+	actual = FindEmulatorFromExtension("/home/gamer/ReallyRareGame.32x")
 
 	if expected != actual {
 		t.Fatalf("Failed to FindPlatformFromExtension().\nexpected: %s\nactual: %s", expected, actual)
