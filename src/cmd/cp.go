@@ -29,7 +29,7 @@ import (
 
 	"github.com/robwillup/rosy/src/config"
 	"github.com/robwillup/rosy/src/filesystem"
-	"github.com/robwillup/rosy/src/platform"
+	"github.com/robwillup/rosy/src/emulators"
 	"github.com/robwillup/rosy/src/sshutils"
 	"github.com/spf13/cobra"
 )
@@ -113,7 +113,7 @@ func copyROMFile(romFile, plat string) error {
 	romsPath := "/home/pi/RetroPie/roms/"
 
 	if plat == "" {
-		plat = platform.FindPlatformFromExtension(romFile)
+		plat = emulators.FindEmulatorFromExtension(romFile)
 	}
 
 	romsPath = path.Join(romsPath, plat, filepath.Base(romFile))

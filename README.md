@@ -26,6 +26,9 @@ may be bugs in current versions.
 You can download the latest binary from [releases](https://github.com/robwillup/rosy/releases)
 or use one of the commands below:
 
+> For Windows, you may need to download use the command below. When downloading from
+> the browser, Windows Defender removed it as a virus.
+
 ### Linux
 
 ```bash

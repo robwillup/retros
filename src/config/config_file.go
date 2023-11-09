@@ -10,44 +10,44 @@ import (
 	"github.com/robwillup/rosy/src/sshutils"
 )
 
-func Create(config sshutils.SSHConfig) error {
+func Create(config sshutils.SSHConfig) (*os.File, error) {
 	if config.Host == "" {
-		return errors.New("Host is required")
+		return nil, errors.New("Host is required")
 	}
 
 	if config.Username == "" {
-		return errors.New("Username is required")
+		return nil, errors.New("Username is required")
 	}
 
 	if config.KeyPath == "" {
-		return errors.New("KeyPath is required")
+		return nil, errors.New("KeyPath is required")
 	}
 
 	home := clientos.GetHomeDir()
 	f, err := os.Create(filepath.Clean(home + "/.rosy"))
 
 	if err != nil {
-		return err
+		return nil, err
 	}
 
 	defer f.Close()
 
 	_, err = f.Write([]byte(config.Host + "\n"))
 	if err != nil {
-		return err
+		return nil, err
 	}
 
 	_, err = f.Write([]byte(config.Username + "\n"))
 	if err != nil {
-		return err
+		return nil, err
 	}
 
 	_, err = f.Write([]byte(config.KeyPath))
 	if err != nil {
-		return err
+		return nil, err
 	}
 
-	return nil
+	return f, nil
 }
 
 func CheckIfExists() bool {
