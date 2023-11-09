@@ -3,6 +3,7 @@ package clientos
 import (
 	"os/user"
 	"runtime"
+	"strings"
 	"testing"
 )
 
@@ -25,7 +26,9 @@ func TestGetHomeDir(t *testing.T) {
 		}
 
 	} else if plat == "windows" {
-		expected := "C:\\Users\\" + u.Username
+		// In Windows, user.Current().Username returns the "<MACHINE_NAME>\USERNAME".
+		// That is why we split and get second element.
+		expected := "C:\\Users\\" + strings.Split(u.Username, "\\")[1]
 
 		actual := GetHomeDir()
 

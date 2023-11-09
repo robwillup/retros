@@ -21,6 +21,9 @@ call `rosy cp MyGameROM.a26` and RoSy will do the rest for you.
 You can download the latest binary from [releases](https://github.com/robwillup/rosy/releases)
 or use one of the commands below:
 
+> For Windows, you may need to download use the command below. When downloading from
+> the browser, Windows Defender removed it as a virus.
+
 ### Linux
 
 ```bash
