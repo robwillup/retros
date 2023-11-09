@@ -11,7 +11,7 @@ func TestFindPlatformFromExtension(t *testing.T) {
 		return
 	}
 
-	expected = "genesis"
+	expected = "megadrive"
 	actual = FindEmulatorFromExtension("gamer/games/ReallyHardGame.md")
 
 	if expected != actual {
@@ -50,4 +50,22 @@ func TestFindPlatformFromExtension(t *testing.T) {
 		t.Fatalf("Failed to FindPlatformFromExtension().\nexpected: %s\nactual: %s", expected, actual)
 		return
 	}
+}
+
+func TestFindPlatformFromExtension_GameCube(t *testing.T) {
+	expected := "gc"
+	actual := FindEmulatorFromExtension("C:\\Users\\Gamer\\AGameCubeGame.gcm")
+
+	if expected != actual {
+		t.Fatalf("Failed to FindPlatformFromExtension_GameCube().\nexpected: %s\nactual: %s", expected, actual)
+		return
+	}
+
+	actual = FindEmulatorFromExtension("/home/pi/AnotherGameCubeGame.gcz")
+
+	if expected != actual {
+		t.Fatalf("Failed to FindPlatformFromExtension_GameCube().\nexpected: %s\nactual: %s", expected, actual)
+		return
+	}
+
 }

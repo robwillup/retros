@@ -2,8 +2,10 @@ package config
 
 import (
 	"errors"
+	"io"
 	"log"
 	"os"
+	"path"
 	"testing"
 
 	"github.com/robwillup/rosy/src/clientos"
@@ -25,7 +27,7 @@ func TestCreate(t *testing.T) {
 	}
 
 	// Act
-	err := Create(conf)
+	_, err := Create(conf)
 
 	// Assert
 	if err != nil {
@@ -57,7 +59,7 @@ func TestCheckIfExists(t *testing.T) {
 			Username: "test",
 			KeyPath:  "test",
 		}
-		err = Create(conf)
+		_, err = Create(conf)
 		if err != nil {
 			t.Fatalf("Failed to arrange for test with error: %v", err)
 			return
@@ -90,12 +92,24 @@ func TestRead(t *testing.T) {
 	home := clientos.GetHomeDir()
 
 	if CheckIfExists() {
-		err := os.Rename(home+"/.rosy", home+"/.rosy_bak")
+		src, err := os.Open(path.Join(home, "/.rosy"))
 
 		if err != nil {
 			t.Fatalf("Failed to backup original config file. Error: %v", err)
 			return
 		}
+
+		defer src.Close()
+
+		dest, err := os.Create(path.Join(home, "/.rosy_bak"))
+
+		if err != nil {
+			t.Fatalf("Failed to backup original config file. Error: %v", err)
+			return
+		}
+
+		defer dest.Close()
+		_, err = io.Copy(dest, src)
 	}
 
 	expected := sshutils.SSHConfig{
@@ -104,7 +118,7 @@ func TestRead(t *testing.T) {
 		KeyPath:  "test",
 	}
 
-	err := Create(expected)
+	_, err := Create(expected)
 
 	if err != nil {
 		t.Fatalf("Failed to create test config file. Error: %v", err)
@@ -125,19 +139,26 @@ func TestRead(t *testing.T) {
 	}
 
 	// Clean up
-	err = os.Remove(home + "/.rosy")
-
-	if err != nil {
-		t.Fatalf("Failed to remove test file. Error: %v", err)
-	}
-
 	if _, err := os.Stat(home + "/.rosy_bak"); errors.Is(err, os.ErrNotExist) {
 		return
 	}
 
-	err = os.Rename(home+"/.rosy_bak", home+"/.rosy")
+	src, err := os.Open(path.Join(home, "/.rosy_bak"))
 
 	if err != nil {
-		t.Fatalf("Failed to restore config backup. Error: %v", err)
+		t.Fatalf("Failed to restore original config file. Error: %v", err)
+		return
 	}
+
+	defer src.Close()
+
+	dest, err := os.Create(path.Join(home, "/.rosy"))
+
+	if err != nil {
+		t.Fatalf("Failed to backup original config file. Error: %v", err)
+		return
+	}
+
+	defer dest.Close()
+	_, err = io.Copy(dest, src)
 }

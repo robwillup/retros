@@ -50,13 +50,13 @@ rosy ls -p=snes     Lists all ROM files under snes/
 		platform, err := cmd.Flags().GetString("platform")
 
 		if err != nil {
-			log.Fatalln(err)
+			log.Fatalf("Failed to get cp flags: Error %t\n", err)
 		}
 
 		output, err := listROMFiles(platform)
 
 		if err != nil {
-			log.Fatalln(err)
+			log.Fatalf("Failed to list ROM files. Error: %t\n", err)
 			return
 		}
 
@@ -126,11 +126,10 @@ func listROMFiles(platform string) (string, error) {
 
 func runLs(dirPath string, client *ssh.Client) (string, error) {
 	cmd := "ls " + dirPath
-
 	output, err := sshutils.ExecuteRemoteCommand(client, cmd)
 
 	if err != nil {
-		return "", err
+		log.Printf("Sorry. Failed to list ROM files under: %s\n\n", dirPath)
 	}
 
 	return output, nil

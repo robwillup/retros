@@ -24,6 +24,8 @@ package cmd
 import (
 	"fmt"
 	"log"
+	"path"
+	"strings"
 
 	"github.com/robwillup/rosy/src/clientos"
 	"github.com/robwillup/rosy/src/config"
@@ -44,9 +46,7 @@ rosy cf retropie    Configure RetroPie path`,
 	Run: func(cmd *cobra.Command, args []string) {
 		home := clientos.GetHomeDir()
 
-		conf := sshutils.SSHConfig{
-			KeyPath: home + "/.ssh/id_rsa",
-		}
+		conf := sshutils.SSHConfig{}
 
 		fmt.Println("Host IP address:")
 		_, err := fmt.Scanln(&conf.Host)
@@ -60,7 +60,19 @@ rosy cf retropie    Configure RetroPie path`,
 			log.Fatal("Failed to read username")
 		}
 
-		if config.Create(conf) != nil {
+		fmt.Println("SSH key path [default '$HOME/.ssh/id_rsa']:")
+		_, err = fmt.Scanln(&conf.KeyPath,)
+		if err != nil && !strings.Contains(err.Error(), "unexpected newline") {
+			log.Fatal("Failed to read key path")
+		}
+
+		if conf.KeyPath == "" {
+			conf.KeyPath = path.Join(home, "/.ssh/id_rsa")
+		}
+
+		_, err = config.Create(conf)
+
+		if err != nil {
 			log.Fatal("Failed to create config file")
 			return
 		}
