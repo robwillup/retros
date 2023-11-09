@@ -16,6 +16,11 @@ call `rosy cp MyGameROM.a26` and RoSy will do the rest for you.
         <p>Image by @robwillup<p>
 </div>
 
+> **Status**
+>
+> Early development. There are many features to be added and there
+may be bugs in current versions.
+
 ## Download
 
 You can download the latest binary from [releases](https://github.com/robwillup/rosy/releases)
