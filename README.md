@@ -1,9 +1,9 @@
 # RoSy
 
 RoSy is a CLI tool to help you sync your ROM files with your RetroPie setup
-on a remote machine, e.g.: Raspberry Pi.
-Instead of having to manually copy files into the correct folder, you can simply
-call `rosy cp MyGameROM.a26` and RoSy will do the rest for you.
+on a remote machine, e.g.: Raspberry Pi. Instead of having to manually copy
+files into the correct folder, you can simply call `rosy cp MyGameROM.a26`
+and RoSy will do the rest for you.
 
 ![build workflow](https://github.com/robwillup/rosy/actions/workflows/build.yml/badge.svg)
 ![Latest Release](https://img.shields.io/github/v/release/robwillup/rosy?label=Rosy%20(Linux%20binary)&sort=semver)
@@ -12,22 +12,27 @@ call `rosy cp MyGameROM.a26` and RoSy will do the rest for you.
 <div align="center">
     <img
         src="https://repository-images.githubusercontent.com/709978523/5298bcc2-e191-46a5-a5f7-1bda2c7f8075"
-        alt="RoSy" style="width: 600px;"/>
+        alt="RoSy" style="width: 550px;"/>
         <p>Image by @robwillup<p>
 </div>
 
-> **Status**
->
-> Early development. There are many features to be added and there
-may be bugs in current versions.
+## Status
+
+Early development. There are many features to be added and there may be bugs in
+current versions.
+
+## Piracy
+
+This project does NOT provide any game ROM files and does not encourage obtaining
+such files illegally.
 
 ## Download
 
 You can download the latest binary from [releases](https://github.com/robwillup/rosy/releases)
 or use one of the commands below:
 
-> For Windows, you may need to download using the command below. When downloading from
-> the browser, Windows Defender removed it as a virus.
+> For Windows, you may need to download using the command below. When downloading
+> from the browser, Windows Defender removed it as a virus.
 
 ### Linux
 
@@ -62,7 +67,7 @@ RoSy assumes your `SSH private key` is in the default path, i.e.: `$HOME/.ssh/id
 
 ## Operations
 
-These are the commands currently being implemented.
+These are the commands currently available.
 
 ### Copy
 
@@ -72,8 +77,8 @@ Adding a single ROM file to RetroPie:
 rosy cp Game.md
 ```
 
-The ROM will be added to the corresponding folder in RetroPie based on
-the ROM file extension, in the case above `/genesis`.
+The ROM file will be added to the corresponding folder in RetroPie based on
+the ROM file extension, in the case above `megadrive`.
 
 Adding all ROM files in a directory:
 
@@ -93,7 +98,7 @@ specifying the platform it should go into:
 rosy cp --platform=atari2600 Game.bin
 ```
 
-## List
+### List
 
 Lists the ROM files in RetroPie:
 
@@ -106,3 +111,11 @@ To list ROM files for specific platforms:
 ```bash
 rosy ls -p=mastersystem
 ```
+
+## Roadmap
+
+The intent for RoSy is that it will be used to sync other files and assets with
+RetroPie besides ROMs.
+
+Much is still under consideration, but some ideas are being added to the
+[project here](https://github.com/users/robwillup/projects/1).
