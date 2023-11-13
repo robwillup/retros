@@ -4,10 +4,11 @@ import (
 	"crypto/sha256"
 	"io"
 	"os"
+	"path/filepath"
 )
 
 func CalcSha256(romPath string) ([]byte, error) {
-	f, err := os.Open(romPath)
+	f, err := os.Open(filepath.Clean(romPath))
 
 	if err != nil {
 		return []byte{}, err
