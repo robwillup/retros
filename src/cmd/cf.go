@@ -27,21 +27,21 @@ import (
 	"path"
 	"strings"
 
-	"github.com/robwillup/rosy/src/clientos"
-	"github.com/robwillup/rosy/src/config"
-	"github.com/robwillup/rosy/src/sshutils"
+	"github.com/robwillup/retros/src/clientos"
+	"github.com/robwillup/retros/src/config"
+	"github.com/robwillup/retros/src/sshutils"
 	"github.com/spf13/cobra"
 )
 
 // cfCmd represents the cf command
 var cfCmd = &cobra.Command{
 	Use:   "cf",
-	Short: "Used for configuring RoSy",
-	Long: `This commands allows you to change different RoSy settings.
+	Short: "Used for configuring RetroS",
+	Long: `This commands allows you to change different RetroS settings.
 For example:
 
-rosy cf ssh         Configure SSH username, host, key path, etc.
-rosy cf retropie    Configure RetroPie path`,
+retros cf ssh         Configure SSH username, host, key path, etc.
+retros cf retropie    Configure RetroPie path`,
 
 	Run: func(cmd *cobra.Command, args []string) {
 		home := clientos.GetHomeDir()

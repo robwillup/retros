@@ -6,8 +6,8 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/robwillup/rosy/src/clientos"
-	"github.com/robwillup/rosy/src/sshutils"
+	"github.com/robwillup/retros/src/clientos"
+	"github.com/robwillup/retros/src/sshutils"
 )
 
 func Create(config sshutils.SSHConfig) (*os.File, error) {
@@ -24,7 +24,7 @@ func Create(config sshutils.SSHConfig) (*os.File, error) {
 	}
 
 	home := clientos.GetHomeDir()
-	f, err := os.Create(filepath.Clean(home + "/.rosy"))
+	f, err := os.Create(filepath.Clean(home + "/.retros"))
 
 	if err != nil {
 		return nil, err
@@ -52,7 +52,7 @@ func Create(config sshutils.SSHConfig) (*os.File, error) {
 
 func CheckIfExists() bool {
 	home := clientos.GetHomeDir()
-	if _, err := os.Stat(home + "/.rosy"); errors.Is(err, os.ErrNotExist) {
+	if _, err := os.Stat(home + "/.retros"); errors.Is(err, os.ErrNotExist) {
 		return false
 	}
 
@@ -63,7 +63,7 @@ func Read() (sshutils.SSHConfig, error) {
 	configValues := []string{}
 	config := sshutils.SSHConfig{}
 	home := clientos.GetHomeDir()
-	file, err := os.Open(filepath.Clean(home + "/.rosy"))
+	file, err := os.Open(filepath.Clean(home + "/.retros"))
 	if err != nil {
 		return config, err
 	}

@@ -27,10 +27,10 @@ import (
 	"path"
 	"path/filepath"
 
-	"github.com/robwillup/rosy/src/config"
-	"github.com/robwillup/rosy/src/filesystem"
-	"github.com/robwillup/rosy/src/emulators"
-	"github.com/robwillup/rosy/src/sshutils"
+	"github.com/robwillup/retros/src/config"
+	"github.com/robwillup/retros/src/filesystem"
+	"github.com/robwillup/retros/src/emulators"
+	"github.com/robwillup/retros/src/sshutils"
 	"github.com/spf13/cobra"
 )
 
@@ -39,10 +39,10 @@ var cpCmd = &cobra.Command{
 	Use:   "cp",
 	Short: "Copies a ROM file",
 	Long: `Copies a ROM file from the current machine to a remote machine where RetroPie is running.
-RoSy will copy the ROM file to the correct directory in $HOME/RetroPie/roms/.
+RetroS will copy the ROM file to the correct directory in $HOME/RetroPie/roms/.
 For example:
 
-rosy cp Game.md
+retros cp Game.md
 
 copies Game.md to $HOME/RetroPie/roms/genesis.`,
 	Run: func(cmd *cobra.Command, args []string) {

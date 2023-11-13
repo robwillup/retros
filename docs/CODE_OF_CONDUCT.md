@@ -1,6 +1,6 @@
-# RoSy Code of Conduct
+# RetroS Code of Conduct
 
-Welcome to the RoSy project! To ensure a positive experience for everyone, we ask that you adhere to the following guidelines:
+Welcome to the RetroS project! To ensure a positive experience for everyone, we ask that you adhere to the following guidelines:
 
 ## Be Respectful
 

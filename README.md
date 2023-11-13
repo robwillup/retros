@@ -1,16 +1,16 @@
 # RetroS
 
-RetroS is a CLI tool to help you sync files with your retro gaming setup
+RetroS is a tool to help you sync files with your retro gaming setup
 on remote or local machines.
 
-![build workflow](https://github.com/robwillup/rosy/actions/workflows/build.yml/badge.svg)
-![Latest Release](https://img.shields.io/github/v/release/robwillup/rosy?label=Rosy%20(Linux%20binary)&sort=semver)
-![Latest Release](https://img.shields.io/github/v/release/robwillup/rosy?label=Rosy%20(Windows%20binary)&sort=semver)
+![build workflow](https://github.com/robwillup/retros/actions/workflows/build.yml/badge.svg)
+![Latest Release](https://img.shields.io/github/v/release/robwillup/retros?label=RetroS%20(Linux%20binary)&sort=semver)
+![Latest Release](https://img.shields.io/github/v/release/robwillup/retros?label=RetroS%20(Windows%20binary)&sort=semver)
 
 <div align="center">
     <img
         src="https://repository-images.githubusercontent.com/709978523/1ebe6c81-8dfd-499a-a194-4bbfefe65243"
-        alt="Retros" style="width: 550px;"/>
+        alt="RetroS" style="width: 550px;"/>
         <p>Image by @robwillup<p>
 </div>
 
@@ -26,7 +26,7 @@ such files illegally.
 
 ## Download
 
-You can download the latest binary from [releases](https://github.com/robwillup/rosy/releases)
+You can download the latest binary from [releases](https://github.com/robwillup/retros/releases)
 or use one of the commands below:
 
 > For Windows, you may need to download using the command below. When downloading
@@ -36,8 +36,8 @@ or use one of the commands below:
 
 ```bash
 # wget
-wget https://github.com/robwillup/rosy/releases/download/v1.0.0/rosy \
-&& chmod +x rosy
+wget https://github.com/robwillup/retros/releases/download/v1.0.0/retros \
+&& chmod +x retros
 ```
 
 ```bash
@@ -54,14 +54,14 @@ iwr "https://github.com/robwillup/retros/releases/download/v1.0.0/retros.exe" -o
 
 ## Setup
 
-Retros will need the `host (IP address)` and the `username` of the remote machine
+RetroS will need the `host (IP address)` and the `username` of the remote machine
 where RetroPie is running. You can configure that by running:
 
 ```bash
 retros cf
 ```
 
-Retros assumes your `SSH private key` is in the default path, i.e.: `$HOME/.ssh/id_rsa`.
+RetroS assumes your `SSH private key` is in the default path, i.e.: `$HOME/.ssh/id_rsa`.
 
 ## Operations
 
@@ -112,7 +112,7 @@ retros ls -p=mastersystem
 
 ## Roadmap
 
-The intent for Retros is that it will be used to sync other files and assets with
+The intent for RetroS is that it will be used to sync other files and assets with
 RetroPie besides ROMs.
 
 Much is still under consideration, but some ideas are being added to the

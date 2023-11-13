@@ -5,7 +5,7 @@ import (
 	"os"
 	"testing"
 
-	"github.com/robwillup/rosy/src/clientos"
+	"github.com/robwillup/retros/src/clientos"
 )
 
 func TestReadKnownHosts(t *testing.T) {

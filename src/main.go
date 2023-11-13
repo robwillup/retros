@@ -21,7 +21,7 @@ THE SOFTWARE.
 */
 package main
 
-import "github.com/robwillup/rosy/src/cmd"
+import "github.com/robwillup/retros/src/cmd"
 
 func main() {
 	cmd.Execute()

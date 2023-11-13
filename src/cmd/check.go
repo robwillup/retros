@@ -27,7 +27,7 @@ import (
 	"log"
 	"path/filepath"
 
-	"github.com/robwillup/rosy/src/checksum"
+	"github.com/robwillup/retros/src/checksum"
 	"github.com/spf13/cobra"
 )
 
@@ -38,7 +38,7 @@ var checkCmd = &cobra.Command{
 	Long: `Checks ROM file integrity by comparing its checksum with original's.
 For example:
 
-rosy check GameFile.snes     Lists all ROM files
+retros check GameFile.snes     Lists all ROM files
 `,
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("Checking ROM file integrity")

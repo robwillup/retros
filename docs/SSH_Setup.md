@@ -1,6 +1,6 @@
 # SSH Setup
 
-For RoSy to work, it is necessary to ensure the SSH is properly configured.
+For RetroS to work, it is necessary to ensure the SSH is properly configured.
 
 ## Remote Machine
 

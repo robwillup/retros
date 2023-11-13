@@ -1,4 +1,4 @@
-name: Release RoSy
+name: Release RetroS
 
 permissions:
     contents: write
@@ -26,16 +26,16 @@ jobs:
       run: go test -v ./...
 
     - name: Build Go binary for Linux
-      run: go build -o bin/rosy ./src
+      run: go build -o bin/retros ./src
 
     - name: Build Go binary for Windows
-      run: GOOS=windows go build -o bin/rosy.exe ./src
+      run: GOOS=windows go build -o bin/retros.exe ./src
 
     - name: Create Release
       id: create_release
       uses: softprops/action-gh-release@v1
       with:
-        files: ./bin/rosy, ./bin/rosy.exe
+        files: ./bin/retros, ./bin/retros.exe
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 

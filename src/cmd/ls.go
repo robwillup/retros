@@ -27,8 +27,8 @@ import (
 	"path"
 	"strings"
 
-	"github.com/robwillup/rosy/src/config"
-	"github.com/robwillup/rosy/src/sshutils"
+	"github.com/robwillup/retros/src/config"
+	"github.com/robwillup/retros/src/sshutils"
 	"github.com/spf13/cobra"
 	"golang.org/x/crypto/ssh"
 )
@@ -40,8 +40,8 @@ var lsCmd = &cobra.Command{
 	Long: `Lists ROM files in the remote machine where RetroPie is installed.
 For example:
 
-rosy ls             Lists all ROM files
-rosy ls -p=snes     Lists all ROM files under snes/
+retros ls             Lists all ROM files
+retros ls -p=snes     Lists all ROM files under snes/
 `,
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("ROM files found: ")

@@ -34,7 +34,7 @@ var rmCmd = &cobra.Command{
 	Long: `Removes a ROM file or files from the machine where RetroPie is installed.
 For example:
 
-rosy rm Game.ms				Removes "Game.ms" from $HOME/RetroPie/roms/mastersystem`,
+retros rm Game.ms				Removes "Game.ms" from $HOME/RetroPie/roms/mastersystem`,
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("rm called")
 	},

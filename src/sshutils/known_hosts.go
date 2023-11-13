@@ -6,7 +6,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/robwillup/rosy/src/clientos"
+	"github.com/robwillup/retros/src/clientos"
 )
 
 // TODO: This function simply returns every line in `.ssh/known_hosts`.

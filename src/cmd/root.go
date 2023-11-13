@@ -25,16 +25,16 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/robwillup/rosy/src/config"
+	"github.com/robwillup/retros/src/config"
 	"github.com/spf13/cobra"
 )
 
 // rootCmd represents the base command when called without any subcommands
 var rootCmd = &cobra.Command{
-	Use:   "rosy",
-	Short: "RoSy is a ROM synchronizer for RetroPie",
-	Long: `An easy to use CLI tool that helps you maintain
-your RetroPie game library organized and clean.`,
+	Use:   "retros",
+	Short: "RetroS is a file manager for retro gamers",
+	Long: `An easy to use tool that helps you maintain
+your retro gaming setup organized and clean.`,
 
 	Run: func(cmd *cobra.Command, args []string) {
 		checkConfig()
@@ -55,7 +55,7 @@ func init() {
 	// Cobra supports persistent flags, which, if defined here,
 	// will be global for your application.
 
-	// rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.rosy.yaml)")
+	// rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.retros)")
 
 	// Cobra also supports local flags, which will only run
 	// when this action is called directly.
@@ -64,9 +64,9 @@ func init() {
 
 func checkConfig() {
 	if !config.CheckIfExists() {
-		fmt.Println("RoSy must be configured. Run `rosy cf` and follow the prompts")
+		fmt.Println("RetroS must be configured. Run `retros cf` and follow the prompts")
 		return
 	}
 
-	fmt.Println("RoSy: ROM Sync for RetroPie")
+	fmt.Println("RetroS: File manager for retro gamers")
 }

@@ -1,6 +1,6 @@
-# RoSy Contribution Guidelines
+# RetroS Contribution Guidelines
 
-Welcome to the RoSy project! We're excited to have you as a contributor. This document outlines the guidelines for contributing to this project, ensuring a smooth and collaborative development process.
+Welcome to the RetroS project! We're excited to have you as a contributor. This document outlines the guidelines for contributing to this project, ensuring a smooth and collaborative development process.
 
 ## Code of Conduct
 
@@ -12,7 +12,7 @@ Before contributing, please familiarize yourself with our Code of Conduct. We ex
 2. Clone your forked repository locally:
 
 ```bash
-git clone https://github.com/your-username/rosy.git
+git clone https://github.com/your-username/retros.git
 ```
 3. Create a new branch for your work:
 

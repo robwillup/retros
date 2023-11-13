@@ -1,4 +1,4 @@
-module github.com/robwillup/rosy
+module github.com/robwillup/retros
 
 go 1.21.3
 

@@ -8,11 +8,11 @@ import (
 	"path"
 	"testing"
 
-	"github.com/robwillup/rosy/src/clientos"
-	"github.com/robwillup/rosy/src/sshutils"
+	"github.com/robwillup/retros/src/clientos"
+	"github.com/robwillup/retros/src/sshutils"
 )
 
-// Calls config.Create checking if the config file `.rosy` is created.
+// Calls config.Create checking if the config file `.retros` is created.
 func TestCreate(t *testing.T) {
 	// Arrange
 	home := clientos.GetHomeDir()
@@ -35,7 +35,7 @@ func TestCreate(t *testing.T) {
 		return
 	}
 
-	_, err = os.Open(home + "/.rosy")
+	_, err = os.Open(home + "/.retros")
 	if err != nil {
 		t.Fatalf("Failed to create config file with error: %v", err)
 		return
@@ -43,7 +43,7 @@ func TestCreate(t *testing.T) {
 
 	// Clean up
 	if conf.Host == "test" {
-		os.Remove(home + "/.rosy")
+		os.Remove(home + "/.retros")
 	}
 }
 
@@ -53,7 +53,7 @@ func TestCheckIfExists(t *testing.T) {
 	expected := true
 	home := clientos.GetHomeDir()
 
-	if _, err := os.Stat(home + "/.rosy"); errors.Is(err, os.ErrNotExist) {
+	if _, err := os.Stat(home + "/.retros"); errors.Is(err, os.ErrNotExist) {
 		conf := sshutils.SSHConfig{
 			Host:     "test",
 			Username: "test",
@@ -82,7 +82,7 @@ func TestCheckIfExists(t *testing.T) {
 	}
 
 	if conf.Host == "test" {
-		os.Remove(home + "/.rosy")
+		os.Remove(home + "/.retros")
 	}
 }
 
@@ -92,7 +92,7 @@ func TestRead(t *testing.T) {
 	home := clientos.GetHomeDir()
 
 	if CheckIfExists() {
-		src, err := os.Open(path.Join(home, "/.rosy"))
+		src, err := os.Open(path.Join(home, "/.retros"))
 
 		if err != nil {
 			t.Fatalf("Failed to backup original config file. Error: %v", err)
@@ -101,7 +101,7 @@ func TestRead(t *testing.T) {
 
 		defer src.Close()
 
-		dest, err := os.Create(path.Join(home, "/.rosy_bak"))
+		dest, err := os.Create(path.Join(home, "/.retros_bak"))
 
 		if err != nil {
 			t.Fatalf("Failed to backup original config file. Error: %v", err)
@@ -139,11 +139,11 @@ func TestRead(t *testing.T) {
 	}
 
 	// Clean up
-	if _, err := os.Stat(home + "/.rosy_bak"); errors.Is(err, os.ErrNotExist) {
+	if _, err := os.Stat(home + "/.retros_bak"); errors.Is(err, os.ErrNotExist) {
 		return
 	}
 
-	src, err := os.Open(path.Join(home, "/.rosy_bak"))
+	src, err := os.Open(path.Join(home, "/.retros_bak"))
 
 	if err != nil {
 		t.Fatalf("Failed to restore original config file. Error: %v", err)
@@ -152,7 +152,7 @@ func TestRead(t *testing.T) {
 
 	defer src.Close()
 
-	dest, err := os.Create(path.Join(home, "/.rosy"))
+	dest, err := os.Create(path.Join(home, "/.retros"))
 
 	if err != nil {
 		t.Fatalf("Failed to backup original config file. Error: %v", err)
