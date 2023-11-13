@@ -1,9 +1,7 @@
-# RoSy
+# RetroS
 
-RoSy is a CLI tool to help you sync your ROM files with your RetroPie setup
-on a remote machine, e.g.: Raspberry Pi. Instead of having to manually copy
-files into the correct folder, you can simply call `rosy cp MyGameROM.a26`
-and RoSy will do the rest for you.
+RetroS is a CLI tool to help you sync files with your retro gaming setup
+on remote or local machines.
 
 ![build workflow](https://github.com/robwillup/rosy/actions/workflows/build.yml/badge.svg)
 ![Latest Release](https://img.shields.io/github/v/release/robwillup/rosy?label=Rosy%20(Linux%20binary)&sort=semver)
