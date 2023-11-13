@@ -9,8 +9,8 @@ on remote or local machines.
 
 <div align="center">
     <img
-        src="https://repository-images.githubusercontent.com/709978523/5298bcc2-e191-46a5-a5f7-1bda2c7f8075"
-        alt="RoSy" style="width: 550px;"/>
+        src="https://repository-images.githubusercontent.com/709978523/1ebe6c81-8dfd-499a-a194-4bbfefe65243"
+        alt="Retros" style="width: 550px;"/>
         <p>Image by @robwillup<p>
 </div>
 
@@ -42,26 +42,26 @@ wget https://github.com/robwillup/rosy/releases/download/v1.0.0/rosy \
 
 ```bash
 # cURL
-curl -L https://github.com/robwillup/rosy/releases/download/v1.0.0/rosy -o rosy \
-&& chmod +x rosy
+curl -L https://github.com/robwillup/retros/releases/download/v1.0.0/retros \
+-o retros && chmod +x retros
 ```
 
 ### Windows
 
 ```powershell
-iwr "https://github.com/robwillup/rosy/releases/download/v1.0.0/rosy.exe" -o "rosy.exe"
+iwr "https://github.com/robwillup/retros/releases/download/v1.0.0/retros.exe" -o "retros.exe"
 ```
 
 ## Setup
 
-RoSy will need the `host (IP address)` and the `username` of the remote machine
+Retros will need the `host (IP address)` and the `username` of the remote machine
 where RetroPie is running. You can configure that by running:
 
 ```bash
-rosy cf
+retros cf
 ```
 
-RoSy assumes your `SSH private key` is in the default path, i.e.: `$HOME/.ssh/id_rsa`.
+Retros assumes your `SSH private key` is in the default path, i.e.: `$HOME/.ssh/id_rsa`.
 
 ## Operations
 
@@ -72,7 +72,7 @@ These are the commands currently available.
 Adding a single ROM file to RetroPie:
 
 ```bash
-rosy cp Game.md
+retros cp Game.md
 ```
 
 The ROM file will be added to the corresponding folder in RetroPie based on
@@ -81,7 +81,7 @@ the ROM file extension, in the case above `megadrive`.
 Adding all ROM files in a directory:
 
 ```bash
-rosy cp /home/gamer/roms
+retros cp /home/gamer/roms
 ```
 
 All ROM files in the provided directory will be copied to their respective
@@ -93,7 +93,7 @@ If a ROM file has a different extension, you can copy it by
 specifying the platform it should go into:
 
 ```bash
-rosy cp --platform=atari2600 Game.bin
+retros cp --platform=atari2600 Game.bin
 ```
 
 ### List
@@ -101,18 +101,18 @@ rosy cp --platform=atari2600 Game.bin
 Lists the ROM files in RetroPie:
 
 ```bash
-rosy ls
+retros ls
 ```
 
 To list ROM files for specific platforms:
 
 ```bash
-rosy ls -p=mastersystem
+retros ls -p=mastersystem
 ```
 
 ## Roadmap
 
-The intent for RoSy is that it will be used to sync other files and assets with
+The intent for Retros is that it will be used to sync other files and assets with
 RetroPie besides ROMs.
 
 Much is still under consideration, but some ideas are being added to the
