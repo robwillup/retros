@@ -1,18 +1,22 @@
 package checksum
 
 import (
+	"fmt"
 	"os"
 
 	"gopkg.in/yaml.v3"
 )
 
-type Rom map[string]string
-
-type Data struct {
-	Roms []Rom `yaml:"roms"`
+type ROMChecksum struct {
+	Name  string `yaml:"name"`
+	SHA256 string `yaml:"sha256"`
 }
 
-func GetChecksums() ([]Rom, error) {
+type Data struct {
+	Roms map[string]string `yaml:"roms"`
+}
+
+func GetChecksums() (map[string]string, error) {
 	f, err := os.ReadFile("src/checksum/snes.yml")
 	if err != nil {
 		return nil, err
@@ -22,6 +26,8 @@ func GetChecksums() ([]Rom, error) {
 	if err := yaml.Unmarshal(f, &out); err != nil {
 		return nil, err
 	}
+
+	fmt.Printf("HERE\n")
 
 	return out.Roms, err
 }

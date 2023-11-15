@@ -47,7 +47,7 @@ retros check GameFile.snes     Lists all ROM files
 		res, err := checkROM(args[0])
 
 		if err != nil {
-			log.Fatalf("Failed to check ROM. Error: %t\n", err)
+			log.Fatalf("Failed to check ROM. Error: %v\n", err)
 			return
 		}
 
@@ -60,6 +60,14 @@ func init() {
 }
 
 func checkROM(romPath string) (string, error) {
+	// games, _ := checksum.GetChecksumsFromJSON()
+
+	// err := checksum.WriteChecksumsToYaml(games)
+
+	// if err != nil {
+	// 	return "", err
+	// }
+
 	list, err := checksum.GetChecksums()
 
 	if err != nil {
@@ -77,11 +85,11 @@ func checkROM(romPath string) (string, error) {
 
 	fmt.Printf("Local file name: %s\n", romName)
 	fmt.Printf("Local file hash: %s\n", encoded)
-	fmt.Printf("Original hash:   %s\n", list[0][romName])
+	fmt.Printf("Original hash:   %s\n", list[romName])
 
-	_, ok := list[0][romName]
+	_, ok := list[romName]
 
-	if ok {
+	if ok && list[romName] == encoded {
 		return "Good ROM file", nil
 	}
 
