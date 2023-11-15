@@ -75,11 +75,13 @@ func checkROM(romPath string) (string, error) {
 	romName := filepath.Base(romPath)
 	encoded := hex.EncodeToString(localChecksum)
 
-	fmt.Printf("local name: %s\n", romName)
-	fmt.Printf("Name: %s\n", list[romName])
-	fmt.Printf("local: %s\n", encoded)
+	fmt.Printf("Local file name: %s\n", romName)
+	fmt.Printf("Local file hash: %s\n", encoded)
+	fmt.Printf("Original hash:   %s\n", list[0][romName])
 
-	if list[romName] == encoded {
+	_, ok := list[0][romName]
+
+	if ok {
 		return "Good ROM file", nil
 	}
 
