@@ -85,15 +85,15 @@ retros cp /home/gamer/roms
 ```
 
 All ROM files in the provided directory will be copied to their respective
-platforms in RetroPie based on the file extensions.
+emulators in RetroPie based on the file extensions.
 
-#### Specifying the platform
+#### Specifying the emulator
 
 If a ROM file has a different extension, you can copy it by
-specifying the platform it should go into:
+specifying the emulator it should go into:
 
 ```bash
-retros cp --platform=atari2600 Game.bin
+retros cp --emulator=atari2600 Game.bin
 ```
 
 ### List
@@ -104,10 +104,10 @@ Lists the ROM files in RetroPie:
 retros ls
 ```
 
-To list ROM files for specific platforms:
+To list ROM files for specific emulators:
 
 ```bash
-retros ls -p=mastersystem
+retros ls -e=mastersystem
 ```
 
 ## Roadmap

@@ -1,23 +1,18 @@
 /*
 Copyright © 2023 Robson William
 
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
 
-The above copyright notice and this permission notice shall be included in
-all copies or substantial portions of the Software.
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
 
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
-THE SOFTWARE.
+You should have received a copy of the GNU General Public License
+along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 package cmd
 
@@ -53,13 +48,13 @@ copies Game.md to $HOME/RetroPie/roms/genesis.`,
 		fmt.Println("Copying ROM files")
 		fmt.Println()
 
-		platform, err := cmd.Flags().GetString("platform")
+		emulator, err := cmd.Flags().GetString("emulator")
 
 		if err != nil {
 			log.Fatalln(err)
 		}
 
-		err = copy(args[0], platform)
+		err = copy(args[0], emulator)
 
 		if err != nil {
 			log.Fatalf("Failed to copy ROM file. Error: %v", err)
@@ -69,11 +64,11 @@ copies Game.md to $HOME/RetroPie/roms/genesis.`,
 
 func init() {
 	rootCmd.AddCommand(cpCmd)
-	var platform string
-	cpCmd.PersistentFlags().StringVarP(&platform, "platform", "p", "", "The platform where the ROM file(s) will be copied to")
+	var emulator string
+	cpCmd.PersistentFlags().StringVarP(&emulator, "emulator", "e", "", "The emulator where the ROM file(s) will be copied to")
 }
 
-func copy(fsPath, platform string) error {
+func copy(fsPath, emulator string) error {
 	isDir, err := filesystem.CheckDir(fsPath)
 
 	if err != nil {
@@ -89,7 +84,7 @@ func copy(fsPath, platform string) error {
 
 		if len(files) > 0 {
 			for _, file := range files {
-				err := copyROMFile(path.Join(fsPath, file), platform)
+				err := copyROMFile(path.Join(fsPath, file), emulator)
 
 				if err != nil {
 					return err
@@ -100,7 +95,7 @@ func copy(fsPath, platform string) error {
 		return nil
 	}
 
-	err = copyROMFile(fsPath, platform)
+	err = copyROMFile(fsPath, emulator)
 
 	if err != nil {
 		return err
@@ -109,14 +104,14 @@ func copy(fsPath, platform string) error {
 	return nil
 }
 
-func copyROMFile(romFile, plat string) error {
+func copyROMFile(romFile, emulator string) error {
 	romsPath := "/home/pi/RetroPie/roms/"
 
-	if plat == "" {
-		plat = emulators.FindEmulatorFromExtension(romFile)
+	if emulator == "" {
+		emulator = emulators.FindEmulatorFromExtension(romFile)
 	}
 
-	romsPath = path.Join(romsPath, plat, filepath.Base(romFile))
+	romsPath = path.Join(romsPath, emulator, filepath.Base(romFile))
 
 	config, err := config.Read()
 
