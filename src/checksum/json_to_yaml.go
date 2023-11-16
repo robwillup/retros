@@ -57,7 +57,7 @@ func WriteChecksumsToYaml() error {
 		return err
 	}
 
-	f, err := os.OpenFile(YAMLFile, os.O_APPEND | os.O_CREATE | os.O_WRONLY, 0644)
+	f, err := os.OpenFile(YAMLFile, os.O_APPEND | os.O_CREATE | os.O_WRONLY, 0600)
 	if err != nil {
 		return err
 	}
