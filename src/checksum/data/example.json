@@ -1,0 +1,30 @@
+{
+  "datafile": {
+      "_schemaLocation": "https://datomatic.no-intro.org/stuff https://datomatic.no-intro.org/stuff/schema_nointro_datfile_v3.xsd",
+      "header": {
+          "id": "88",
+          "name": "Atari - 2600",
+          "description": "Atari - 2600",
+          "version": "20231107-103852",
+          "author": "ajshell1, Arctic Circle System, C. V. Reynolds, FakeShemp, Flashfire42, Gefflon, Hiccup, nnssxx, omonim2007, Psychofox11, rarenight, RetroUprising, SonGoku, xuom2",
+          "homepage": "No-Intro",
+          "url": "https://www.no-intro.org",
+          "clrmamepro": {
+              "_forcenodump": "required"
+          }
+      },
+      "game": [
+        {
+            "_name": "3-D Genesis (USA) (Proto)",
+            "_id": "0595",
+            "description": "3-D Genesis (USA) (Proto)",
+            "rom": {
+                "_name": "3-D Genesis (USA) (Proto).a26",
+                "_size": "8192",
+                "_crc": "931a0bdc",
+                "_md5": "cac9928a84e1001817b223f0cecaa3f2",
+                "_sha1": "0e146e5eb1a68cba4f8fa55ec6f125438efcfcb4"
+            }
+        }]
+    }
+}
