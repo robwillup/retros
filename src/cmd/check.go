@@ -22,10 +22,9 @@ THE SOFTWARE.
 package cmd
 
 import (
-	"encoding/hex"
+	"errors"
 	"fmt"
 	"log"
-	"path/filepath"
 
 	"github.com/robwillup/retros/src/checksum"
 	"github.com/spf13/cobra"
@@ -44,14 +43,14 @@ retros check GameFile.snes     Lists all ROM files
 		fmt.Println("Checking ROM file integrity")
 		fmt.Println()
 
-		res, err := checkROM(args[0])
+		err := checkROM(args[0])
 
 		if err != nil {
-			log.Fatalf("Failed to check ROM. Error: %t\n", err)
+			log.Fatalf("Failed to check ROM. Error: %v\n", err)
 			return
 		}
 
-		fmt.Println(res)
+		fmt.Println("ROM file is OK.")
 	},
 }
 
@@ -59,31 +58,42 @@ func init() {
 	rootCmd.AddCommand(checkCmd)
 }
 
-func checkROM(romPath string) (string, error) {
+func checkROM(romPath string) (error) {
+	// err := checksum.WriteChecksumsToYaml()
+
+	// if err != nil {
+	// 	return err
+	// }
+
 	list, err := checksum.GetChecksums()
 
 	if err != nil {
-		return "", err
+		return err
 	}
 
-	localChecksum, err := checksum.CalcSha256(romPath)
+	localROM, err := checksum.CalcChecksum(romPath)
 
 	if err != nil {
-		return "", err
+		return err
 	}
 
-	romName := filepath.Base(romPath)
-	encoded := hex.EncodeToString(localChecksum)
+	fmt.Printf("Local file name: %s\n", localROM.Name)
+	fmt.Printf("Local file MD5: %s\n", localROM.MD5)
+	fmt.Printf("Local file SHA1: %s\n", localROM.SHA1)
+	fmt.Printf("Local file SHA256: %s\n", localROM.SHA256)
+	fmt.Printf("Local file Size: %d\n", localROM.Size)
 
-	fmt.Printf("Local file name: %s\n", romName)
-	fmt.Printf("Local file hash: %s\n", encoded)
-	fmt.Printf("Original hash:   %s\n", list[0][romName])
-
-	_, ok := list[0][romName]
+	s, ok := list[localROM.MD5]
 
 	if ok {
-		return "Good ROM file", nil
+		fmt.Printf("Original file name: %s\n", s.Name)
+		fmt.Printf("Original file MD5: %s\n", s.MD5)
+		fmt.Printf("Original file SHA1: %s\n", s.SHA1)
+		fmt.Printf("Original file SHA256: %s\n", s.SHA256)
+		fmt.Printf("Original file Size: %d\n", s.Size)
+
+		return nil
 	}
 
-	return "Bad ROM file", nil
+	return errors.New(fmt.Sprintf("Invalid ROM hash for game %s", s.Name))
 }
