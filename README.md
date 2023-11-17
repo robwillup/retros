@@ -1,6 +1,6 @@
 # RetroS
 
-RetroS is a tool to help you sync files with your retro gaming setup
+RetroS is a tool to help you manage files with your retro gaming setup
 on remote or local machines.
 
 ![build workflow](https://github.com/robwillup/retros/actions/workflows/build.yml/badge.svg)
@@ -30,7 +30,7 @@ You can download the latest binary from [releases](https://github.com/robwillup/
 or use one of the commands below:
 
 > For Windows, you may need to download using the command below. When downloading
-> from the browser, Windows Defender removed it as a virus.
+> from the browser, Windows Defender may remove it as a virus.
 
 ### Linux
 
@@ -63,7 +63,7 @@ retros cf
 
 RetroS assumes your `SSH private key` is in the default path, i.e.: `$HOME/.ssh/id_rsa`.
 
-## Operations
+## Commands
 
 These are the commands currently available.
 
@@ -108,6 +108,15 @@ To list ROM files for specific emulators:
 
 ```bash
 retros ls -e=mastersystem
+```
+
+### Check
+
+The `check` command verifies the integrity of ROM files.
+The example below shows how to check all ROM files in the `snes` directory:
+
+```bash
+retros check ~/games/snes
 ```
 
 ## Roadmap

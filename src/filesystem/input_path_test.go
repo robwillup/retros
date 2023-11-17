@@ -7,7 +7,7 @@ import (
 func TestCheckDir(t *testing.T) {
 	expected := false
 
-	actual, err := CheckDir("input_path.go")
+	actual, err := IsDir("input_path.go")
 	if err != nil {
 		t.Fatalf("Failed to CheckDir(). Error: %t", err)
 		return

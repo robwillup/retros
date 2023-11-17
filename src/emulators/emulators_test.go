@@ -8,7 +8,6 @@ func TestFindEmulatorFromExtension(t *testing.T) {
 
 	if expected != actual {
 		t.Fatalf("Failed to TestFindEmulatorFromExtension().\nexpected: %s\nactual: %s", expected, actual)
-		return
 	}
 
 	expected = "megadrive"
@@ -16,7 +15,6 @@ func TestFindEmulatorFromExtension(t *testing.T) {
 
 	if expected != actual {
 		t.Fatalf("Failed to TestFindEmulatorFromExtension().\nexpected: %s\nactual: %s", expected, actual)
-		return
 	}
 
 	expected = "mastersystem"
@@ -24,7 +22,6 @@ func TestFindEmulatorFromExtension(t *testing.T) {
 
 	if expected != actual {
 		t.Fatalf("Failed to TestFindEmulatorFromExtension().\nexpected: %s\nactual: %s", expected, actual)
-		return
 	}
 
 	expected = "gba"
@@ -32,7 +29,6 @@ func TestFindEmulatorFromExtension(t *testing.T) {
 
 	if expected != actual {
 		t.Fatalf("Failed to TestFindEmulatorFromExtension().\nexpected: %s\nactual: %s", expected, actual)
-		return
 	}
 
 	expected = "atari2600"
@@ -40,7 +36,6 @@ func TestFindEmulatorFromExtension(t *testing.T) {
 
 	if expected != actual {
 		t.Fatalf("Failed to TestFindEmulatorFromExtension().\nexpected: %s\nactual: %s", expected, actual)
-		return
 	}
 
 	expected = "sega32x"
@@ -48,7 +43,6 @@ func TestFindEmulatorFromExtension(t *testing.T) {
 
 	if expected != actual {
 		t.Fatalf("Failed to TestFindEmulatorFromExtension().\nexpected: %s\nactual: %s", expected, actual)
-		return
 	}
 }
 
@@ -58,14 +52,12 @@ func TestFindEmulatorFromExtension_GameCube(t *testing.T) {
 
 	if expected != actual {
 		t.Fatalf("Failed to TestFindEmulatorFromExtension_GameCube().\nexpected: %s\nactual: %s", expected, actual)
-		return
 	}
 
 	actual = FindEmulatorFromExtension("/home/pi/AnotherGameCubeGame.gcz")
 
 	if expected != actual {
 		t.Fatalf("Failed to TestFindEmulatorFromExtension_GameCube().\nexpected: %s\nactual: %s", expected, actual)
-		return
 	}
 
 }

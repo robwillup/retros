@@ -23,8 +23,8 @@ import (
 	"path/filepath"
 
 	"github.com/robwillup/retros/src/config"
-	"github.com/robwillup/retros/src/filesystem"
 	"github.com/robwillup/retros/src/emulators"
+	"github.com/robwillup/retros/src/filesystem"
 	"github.com/robwillup/retros/src/sshutils"
 	"github.com/spf13/cobra"
 )
@@ -69,7 +69,7 @@ func init() {
 }
 
 func copy(fsPath, emulator string) error {
-	isDir, err := filesystem.CheckDir(fsPath)
+	isDir, err := filesystem.IsDir(fsPath)
 
 	if err != nil {
 		return err
