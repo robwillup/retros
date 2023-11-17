@@ -110,7 +110,7 @@ To list ROM files for specific emulators:
 retros ls -e=mastersystem
 ```
 
-### Check
+### Check (Fixing issue with datafiles)
 
 The `check` command verifies the integrity of ROM files.
 The example below shows how to check all ROM files in the `snes` directory:
