@@ -19,8 +19,11 @@ package cmd
 import (
 	"fmt"
 	"os"
+	"path/filepath"
 
+	"github.com/robwillup/retros/src/clientos"
 	"github.com/robwillup/retros/src/config"
+	"github.com/robwillup/retros/src/filesystem"
 	"github.com/spf13/cobra"
 )
 
@@ -50,7 +53,7 @@ func init() {
 	// Cobra supports persistent flags, which, if defined here,
 	// will be global for your application.
 
-	// rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.retros)")
+	// rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "", "config file (default is $HOME/.retros/.retros.yml)")
 
 	// Cobra also supports local flags, which will only run
 	// when this action is called directly.
@@ -58,7 +61,8 @@ func init() {
 }
 
 func checkConfig() {
-	if !config.CheckIfExists() {
+	configFile := filepath.Join(clientos.GetHomeDir(), config.CONFIG_FILE_NAME)
+	if !filesystem.CheckIfExists(configFile) {
 		fmt.Println("RetroS must be configured. Run `retros cf` and follow the prompts")
 		return
 	}
