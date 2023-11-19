@@ -29,7 +29,7 @@ func GetChecksums(emulator, fsPath string) (map[string]ROM, error) {
 		}
 	}
 
-	f, err := os.ReadFile(fsPath)
+	f, err := os.ReadFile(filepath.Clean(fsPath))
 	if err != nil {
 		return nil, err
 	}
@@ -43,7 +43,7 @@ func GetChecksums(emulator, fsPath string) (map[string]ROM, error) {
 }
 
 func download(fsPath, emulator string) error {
-	out, err := os.Create(fsPath)
+	out, err := os.Create(filepath.Clean(fsPath))
 	if err != nil {
 		return err
 	}
