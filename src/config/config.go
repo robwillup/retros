@@ -29,12 +29,12 @@ func Create(config sshutils.SSHConfig) error {
 
 	configPath := filepath.Join(clientos.GetHomeDir(), ".retros")
 
-	err := os.MkdirAll(configPath, 0755)
+	err := os.MkdirAll(configPath, 0750)
 	if err != nil {
 		return err
 	}
 
-	f, err := os.Create(filepath.Join(configPath, CONFIG_FILE_NAME))
+	f, err := os.Create(filepath.Clean(filepath.Join(configPath, CONFIG_FILE_NAME)))
 
 	if err != nil {
 		return err

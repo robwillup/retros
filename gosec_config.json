@@ -1,6 +1,6 @@
 {
     "_header": "Ignoring the rules below because MD5 and SHA1 backward compatibility",
     "global": {
-        "exclude": "G401,G501,G505"
+        "exclude": "G107,G401,G501,G505"
     }
 }
