@@ -1,6 +1,7 @@
 package filesystem
 
 import (
+	"errors"
 	"os"
 )
 
@@ -38,4 +39,12 @@ func GetFiles(dir string) ([]string, error) {
 	}
 
 	return files, nil
+}
+
+func CheckIfExists(fsPath string) bool {
+	if _, err := os.Stat(fsPath); errors.Is(err, os.ErrNotExist) {
+		return false
+	}
+
+	return true
 }

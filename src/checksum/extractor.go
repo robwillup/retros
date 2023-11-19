@@ -2,21 +2,34 @@ package checksum
 
 import (
 	"fmt"
+	"io"
+	"net/http"
 	"os"
 	"path/filepath"
 
+	"github.com/robwillup/retros/src/clientos"
+	"github.com/robwillup/retros/src/filesystem"
 	"gopkg.in/yaml.v3"
 )
 
 func GetChecksums(emulator, fsPath string) (map[string]ROM, error) {
-	dataFilePath := "src/checksum/data/"
+	var checksumPath string = filepath.Join(clientos.GetHomeDir(), ".retros")
 
 	if fsPath != "" {
-		dataFilePath = fsPath
+		checksumPath = fsPath
 	}
 
-	checksumsPath := filepath.Clean(filepath.Join(dataFilePath, fmt.Sprintf("%s.yml", emulator)))
-	f, err := os.ReadFile(checksumsPath)
+	fsPath = filepath.Join(checksumPath, fmt.Sprintf("%s.yml", emulator))
+
+	if !filesystem.CheckIfExists(fsPath) {
+		err := download(fsPath, emulator)
+
+		if err != nil {
+			return nil, err
+		}
+	}
+
+	f, err := os.ReadFile(fsPath)
 	if err != nil {
 		return nil, err
 	}
@@ -27,4 +40,31 @@ func GetChecksums(emulator, fsPath string) (map[string]ROM, error) {
 	}
 
 	return out, err
+}
+
+func download(fsPath, emulator string) error {
+	out, err := os.Create(fsPath)
+	if err != nil {
+		return err
+	}
+
+	defer out.Close()
+
+	url := fmt.Sprintf("https://raw.githubusercontent.com/robwillup/retros/main/src/checksum/data/%s.yml", emulator)
+
+	resp, err := http.Get(url)
+
+	if err != nil {
+		return err
+	}
+
+	defer resp.Body.Close()
+
+	_, err = io.Copy(out, resp.Body)
+
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
