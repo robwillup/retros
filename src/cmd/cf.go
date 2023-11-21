@@ -65,6 +65,8 @@ retros cf retropie    Configure RetroPie path`,
 			conf.KeyPath = path.Join(home, "/.ssh/id_rsa")
 		}
 
+		conf.Port = 22
+
 		err = config.Create(conf)
 
 		if err != nil {

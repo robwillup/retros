@@ -51,7 +51,7 @@ retros ls -p=snes     Lists all ROM files under snes/
 		output, err := listROMFiles(emulator)
 
 		if err != nil {
-			log.Fatalf("Failed to list ROM files. Error: %t\n", err)
+			log.Fatalf("Failed to list ROM files. Error: %v\n", err)
 			return
 		}
 
