@@ -48,7 +48,7 @@ func Create(config sshutils.SSHConfig) error {
 		return err
 	}
 
-	err = os.WriteFile(filepath.Join(configPath, CONFIG_FILE_NAME), yaml, fs.FileMode(os.O_CREATE | os.O_WRONLY))
+	err = os.WriteFile(filepath.Join(configPath, CONFIG_FILE_NAME), yaml, fs.FileMode(os.O_CREATE|os.O_WRONLY))
 
 	if err != nil {
 		return err

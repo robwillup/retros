@@ -28,6 +28,8 @@ import (
 	"github.com/spf13/cobra"
 )
 
+const SSH_PORT = 22
+
 // cfCmd represents the cf command
 var cfCmd = &cobra.Command{
 	Use:   "cf",
@@ -40,23 +42,24 @@ retros cf retropie    Configure RetroPie path`,
 
 	Run: func(cmd *cobra.Command, args []string) {
 		home := clientos.GetHomeDir()
-
 		conf := sshutils.SSHConfig{}
-
 		fmt.Println("Host IP address:")
 		_, err := fmt.Scanln(&conf.Host)
+
 		if err != nil {
 			log.Fatal("Failed to read host")
 		}
 
 		fmt.Println("Username:")
 		_, err = fmt.Scanln(&conf.Username)
+
 		if err != nil {
 			log.Fatal("Failed to read username")
 		}
 
 		fmt.Println("SSH key path [default '$HOME/.ssh/id_rsa']:")
-		_, err = fmt.Scanln(&conf.KeyPath,)
+		_, err = fmt.Scanln(&conf.KeyPath)
+
 		if err != nil && !strings.Contains(err.Error(), "unexpected newline") {
 			log.Fatal("Failed to read key path")
 		}
@@ -65,13 +68,11 @@ retros cf retropie    Configure RetroPie path`,
 			conf.KeyPath = path.Join(home, "/.ssh/id_rsa")
 		}
 
-		conf.Port = 22
-
+		conf.Port = SSH_PORT
 		err = config.Create(conf)
 
 		if err != nil {
 			log.Fatal("Failed to create config file")
-			return
 		}
 	},
 }

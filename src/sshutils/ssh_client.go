@@ -2,8 +2,10 @@ package sshutils
 
 import (
 	"encoding/base64"
+	"errors"
 	"fmt"
 	"io"
+	"log"
 	"net"
 	"os"
 	"path/filepath"
@@ -12,7 +14,6 @@ import (
 
 	"github.com/pkg/sftp"
 	"golang.org/x/crypto/ssh"
-	"golang.org/x/crypto/ssh/agent"
 )
 
 func EstablishSSHConnection(config SSHConfig) (*ssh.Client, error) {
@@ -22,36 +23,23 @@ func EstablishSSHConnection(config SSHConfig) (*ssh.Client, error) {
 		HostKeyCallback: trustedHostKeyCallback(),
 	}
 
-	if config.KeyPath != "" {
-		key, err := os.ReadFile(config.KeyPath)
-
-		if err != nil {
-			return nil, err
-		}
-
-		signer, err := ssh.ParsePrivateKey(key)
-
-		if err != nil {
-			return nil, err
-		}
-
-		sshConfig.Auth = append(sshConfig.Auth, ssh.PublicKeys(signer))
-	} else {
-		socket := os.Getenv("SSH_AUTH_SOCKET")
-		conn, err := net.Dial("unix", socket)
-
-		if err != nil {
-			return nil, err
-		}
-
-		agentClient := agent.NewClient(conn)
-
-		if err != nil {
-			return nil, err
-		}
-
-		sshConfig.Auth = append(sshConfig.Auth, ssh.PublicKeysCallback(agentClient.Signers))
+	if config.KeyPath == "" {
+		return nil, errors.New("SSH key path must be provided.")
 	}
+
+	key, err := os.ReadFile(config.KeyPath)
+
+	if err != nil {
+		return nil, err
+	}
+
+	signer, err := ssh.ParsePrivateKey(key)
+
+	if err != nil {
+		return nil, err
+	}
+
+	sshConfig.Auth = append(sshConfig.Auth, ssh.PublicKeys(signer))
 
 	client, err := ssh.Dial("tcp", config.Host+":"+strconv.Itoa(config.Port), sshConfig)
 	if err != nil {
@@ -66,8 +54,7 @@ func trustedHostKeyCallback() ssh.HostKeyCallback {
 	known_hosts, err := readKnownHosts()
 
 	if err != nil {
-		fmt.Println("Failed to read known_hosts file")
-		return nil
+		log.Fatalf("Failed to read known_hosts file")
 	}
 
 	return func(_ string, _ net.Addr, k ssh.PublicKey) error {

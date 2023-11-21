@@ -46,7 +46,6 @@ copies Game.md to $HOME/RetroPie/roms/genesis.`,
 		}
 
 		fmt.Println("Copying ROM files")
-		fmt.Println()
 
 		emulator, err := cmd.Flags().GetString("emulator")
 
@@ -116,15 +115,13 @@ func copyROMFile(romFile, emulator string) error {
 	config, err := config.Read()
 
 	if err != nil {
-		log.Fatal("Failed to read config file")
-		return nil
+		return err
 	}
 
 	client, err := sshutils.EstablishSSHConnection(config)
 
 	if err != nil {
-		fmt.Println(err.Error())
-		return nil
+		return err
 	}
 
 	err = sshutils.CopyROMToRemote(client, romFile, romsPath)
