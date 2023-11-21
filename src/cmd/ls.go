@@ -40,7 +40,6 @@ retros ls -p=snes     Lists all ROM files under snes/
 `,
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("ROM files found: ")
-		fmt.Println()
 
 		emulator, err := cmd.Flags().GetString("emulator")
 
@@ -52,7 +51,6 @@ retros ls -p=snes     Lists all ROM files under snes/
 
 		if err != nil {
 			log.Fatalf("Failed to list ROM files. Error: %v\n", err)
-			return
 		}
 
 		fmt.Println(output)
@@ -62,7 +60,7 @@ retros ls -p=snes     Lists all ROM files under snes/
 func init() {
 	rootCmd.AddCommand(lsCmd)
 	var emulator string
-	lsCmd.PersistentFlags().StringVarP(&emulator, "emulator", "e", "", "The emulator for which to list ROM files.")
+	lsCmd.PersistentFlags().StringVarP(&emulator, "emulator", "e", "", "The emulator to list ROM files.")
 }
 
 func listROMFiles(emulator string) (string, error) {
@@ -124,7 +122,7 @@ func runLs(dirPath string, client *ssh.Client) (string, error) {
 	output, err := sshutils.ExecuteRemoteCommand(client, cmd)
 
 	if err != nil {
-		log.Printf("Sorry. Failed to list ROM files under: %s\n\n", dirPath)
+		log.Printf("Failed to list ROM files under: %s\n\n", dirPath)
 	}
 
 	return output, nil

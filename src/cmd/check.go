@@ -40,7 +40,6 @@ retros check GameFile.snes     Lists all ROM files
 `,
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("Checking ROM file integrity")
-		fmt.Println()
 
 		check(args[0])
 	},
@@ -55,7 +54,6 @@ func check(fsPath string) {
 
 	if err != nil {
 		log.Fatalf("Failed to check path for ROM verification.\nError: %v\n", err)
-		return
 	}
 
 	if isDir {
@@ -63,7 +61,6 @@ func check(fsPath string) {
 
 		if err != nil {
 			log.Fatalf("Failed to get files for ROM verification.\nError: %v\n", err)
-			return
 		}
 
 		if len(files) < 1 {
@@ -91,7 +88,7 @@ func check(fsPath string) {
 	return
 }
 
-func verifyFileIntegrity(fsPath string) (error) {
+func verifyFileIntegrity(fsPath string) error {
 	emulator := emulators.FindEmulatorFromExtension(fsPath)
 
 	if emulator == "" {
@@ -113,8 +110,9 @@ func verifyFileIntegrity(fsPath string) (error) {
 	originalFile, ok := originalChecksums[localFile.MD5]
 
 	if ok &&
-	 (originalFile.SHA1 == localFile.SHA1 || originalFile.SHA1 == "") &&
-	 (originalFile.SHA256 == localFile.SHA256 || originalFile.SHA256 == "") {
+		(originalFile.SHA1 == localFile.SHA1 || originalFile.SHA1 == "") &&
+		(originalFile.SHA256 == localFile.SHA256 || originalFile.SHA256 == "") {
+
 		fmt.Printf("Local file name:      %s\n", localFile.Name)
 		fmt.Printf("Original file name:   %s\n", originalFile.Name)
 		fmt.Printf("Local file MD5:       %s\n", localFile.MD5)
