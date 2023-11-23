@@ -39,9 +39,9 @@ jobs:
       uses: softprops/action-gh-release@v1
       with:
         files: |
-          ./bin/linux/retros
-          ./bin/mac/retros
-          ./bin/windows/retros.exe
+          bin/linux/retros
+          bin/mac/retros
+          bin/windows/retros.exe
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
