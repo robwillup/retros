@@ -29,7 +29,7 @@ jobs:
       run: go build -o bin/linux/retros ./src
 
     - name: Build Go binary for OSX
-      run: GOOS=darwin GOARCH=arm64 go build -o bin/mac/retros ./src
+      run: GOOS=darwin GOARCH=arm64 go build -o bin/mac/osx-retros ./src
 
     - name: Build Go binary for Windows
       run: GOOS=windows go build -o bin/windows/retros.exe ./src
@@ -40,7 +40,7 @@ jobs:
       with:
         files: |
           bin/linux/retros
-          bin/mac/retros -> osx_retros
+          bin/mac/osx-retros
           bin/windows/retros.exe
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
