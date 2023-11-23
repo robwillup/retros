@@ -40,7 +40,7 @@ jobs:
       with:
         files: |
           bin/linux/retros
-          bin/mac/retros
+          bin/mac/retros -> osx_retros
           bin/windows/retros.exe
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
