@@ -28,6 +28,9 @@ jobs:
     - name: Build Go binary for Linux
       run: go build -o bin/retros ./src
 
+    - name: Build Go binary for OSX
+      run: GOOS=darwin GOARCH=arm64 go build -o bin/mac/retros ./src
+
     - name: Build Go binary for Windows
       run: GOOS=windows go build -o bin/retros.exe ./src
 
@@ -35,7 +38,7 @@ jobs:
       id: create_release
       uses: softprops/action-gh-release@v1
       with:
-        files: ./bin/retros, ./bin/retros.exe
+        files: ./bin/retros, ./bin/mac/retros, ./bin/retros.exe
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
