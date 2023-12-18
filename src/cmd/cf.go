@@ -43,8 +43,20 @@ retros cf retropie    Configure RetroPie path`,
 	Run: func(cmd *cobra.Command, args []string) {
 		home := clientos.GetHomeDir()
 		conf := sshutils.SSHConfig{}
-		fmt.Println("Host IP address:")
+		fmt.Println("Host IP address (leave empty and press enter for local machine):")
 		_, err := fmt.Scanln(&conf.Host)
+
+		if conf.Host == "" {
+			fmt.Println("Host is empty. RetroS will manage game files on this machine.")
+
+			err = config.Create(conf)
+
+			if err != nil {
+				log.Fatal("Failed to create config file")
+			}
+
+			return
+		}
 
 		if err != nil {
 			log.Fatal("Failed to read host")

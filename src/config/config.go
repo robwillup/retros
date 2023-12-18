@@ -1,8 +1,6 @@
 package config
 
 import (
-	"errors"
-	"fmt"
 	"io/fs"
 	"os"
 	"path/filepath"
@@ -15,18 +13,6 @@ import (
 const CONFIG_FILE_NAME = ".retros.yml"
 
 func Create(config sshutils.SSHConfig) error {
-	if config.Host == "" {
-		return errors.New("Host is required")
-	}
-
-	if config.Username == "" {
-		return errors.New("Username is required")
-	}
-
-	if config.KeyPath == "" {
-		return errors.New("KeyPath is required")
-	}
-
 	configPath := filepath.Join(clientos.GetHomeDir(), ".retros")
 
 	err := os.MkdirAll(configPath, 0750)
@@ -67,8 +53,6 @@ func Read() (sshutils.SSHConfig, error) {
 	if err := yaml.Unmarshal(bytes, &config); err != nil {
 		return config, err
 	}
-
-	fmt.Println(config)
 
 	return config, nil
 }

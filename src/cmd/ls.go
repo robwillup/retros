@@ -19,9 +19,12 @@ package cmd
 import (
 	"fmt"
 	"log"
+	"os"
 	"path"
+	"path/filepath"
 	"strings"
 
+	"github.com/robwillup/retros/src/clientos"
 	"github.com/robwillup/retros/src/config"
 	"github.com/robwillup/retros/src/sshutils"
 	"github.com/spf13/cobra"
@@ -68,13 +71,21 @@ func listROMFiles(emulator string) (string, error) {
 
 	config, err := config.Read()
 
+	if config.Host == "" {
+		romsPath = filepath.Join(clientos.GetHomeDir(), "RetroPie", "roms")
+	}
+
 	if err != nil {
 		return "", err
 	}
 
-	client, err := sshutils.EstablishSSHConnection(config)
-	if err != nil {
-		return "", err
+	var client *ssh.Client = nil
+
+	if config.Host != "" {
+		client, err = sshutils.EstablishSSHConnection(config)
+		if err != nil {
+			return "", err
+		}
 	}
 
 	if emulator != "" {
@@ -118,12 +129,28 @@ func listROMFiles(emulator string) (string, error) {
 }
 
 func runLs(dirPath string, client *ssh.Client) (string, error) {
-	cmd := "ls " + dirPath
-	output, err := sshutils.ExecuteRemoteCommand(client, cmd)
+	if client != nil {
+		cmd := "ls " + dirPath
+		output, err := sshutils.ExecuteRemoteCommand(client, cmd)
 
-	if err != nil {
-		log.Printf("Failed to list ROM files under: %s\n\n", dirPath)
+		if err != nil {
+			log.Printf("Failed to list ROM files under: %s\n\n", dirPath)
+		}
+
+		return output, nil
 	}
 
-	return output, nil
+	files, err := os.ReadDir(dirPath)
+
+	if err != nil {
+		log.Printf("An error occurred when reading %s. Error: %v\n", dirPath, err.Error())
+	}
+
+	var sb strings.Builder
+
+	for _, file := range files {
+		sb.WriteString(file.Name() + "\n")
+	}
+
+	return sb.String(), nil
 }
