@@ -19,7 +19,7 @@ package cmd
 import (
 	"fmt"
 	"log"
-	"os"
+	"os/exec"
 	"path"
 	"path/filepath"
 	"strings"
@@ -43,6 +43,7 @@ retros ls -p=snes     Lists all ROM files under snes/
 `,
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("ROM files found: ")
+		fmt.Println()
 
 		emulator, err := cmd.Flags().GetString("emulator")
 
@@ -129,9 +130,10 @@ func listROMFiles(emulator string) (string, error) {
 }
 
 func runLs(dirPath string, client *ssh.Client) (string, error) {
+	lsCmd := "ls " + dirPath + " --ignore=*.state"
+
 	if client != nil {
-		cmd := "ls " + dirPath
-		output, err := sshutils.ExecuteRemoteCommand(client, cmd)
+		output, err := sshutils.ExecuteRemoteCommand(client, lsCmd)
 
 		if err != nil {
 			log.Printf("Failed to list ROM files under: %s\n\n", dirPath)
@@ -140,17 +142,13 @@ func runLs(dirPath string, client *ssh.Client) (string, error) {
 		return output, nil
 	}
 
-	files, err := os.ReadDir(dirPath)
+	cmd := exec.Command("ls", dirPath, "--ignore=*.state")
+
+	out, err := cmd.Output()
 
 	if err != nil {
 		log.Printf("An error occurred when reading %s. Error: %v\n", dirPath, err.Error())
 	}
 
-	var sb strings.Builder
-
-	for _, file := range files {
-		sb.WriteString(file.Name() + "\n")
-	}
-
-	return sb.String(), nil
+	return string(out), nil
 }
