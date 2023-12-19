@@ -33,7 +33,7 @@ import (
 
 // lsCmd represents the ls command
 var lsCmd = &cobra.Command{
-	Use:   "ls",
+	Use:   "ls [OPTIONS]",
 	Short: "Lists ROM files",
 	Long: `Lists ROM files in the remote machine where RetroPie is installed.
 For example:

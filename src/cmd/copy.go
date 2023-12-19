@@ -31,7 +31,7 @@ import (
 
 // cpCmd represents the cp command
 var cpCmd = &cobra.Command{
-	Use:   "cp",
+	Use:   "cp [OPTIONS]",
 	Short: "Copies a ROM file",
 	Long: `Copies a ROM file from the current machine to a remote machine where RetroPie is running.
 RetroS will copy the ROM file to the correct directory in $HOME/RetroPie/roms/.
