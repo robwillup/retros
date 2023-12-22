@@ -18,15 +18,16 @@ package cmd
 
 import (
 	"fmt"
+	"log"
 	"os"
 	"path/filepath"
 
+	"github.com/pterm/pterm"
+	"github.com/pterm/pterm/putils"
 	"github.com/robwillup/retros/src/clientos"
 	"github.com/robwillup/retros/src/config"
 	"github.com/robwillup/retros/src/filesystem"
 	"github.com/spf13/cobra"
-	"github.com/pterm/pterm"
-	"github.com/pterm/pterm/putils"
 )
 
 // rootCmd represents the base command when called without any subcommands
@@ -64,10 +65,15 @@ func checkConfig() {
 	// Initialize a big text display with the letters "P" and "Term"
 	// "P" is displayed in cyan and "Term" is displayed in light magenta
 	fmt.Println()
-	pterm.DefaultBigText.WithLetters(
+	err := pterm.DefaultBigText.WithLetters(
 		putils.LettersFromStringWithStyle("Retro", pterm.FgGreen.ToStyle()),
 		putils.LettersFromStringWithStyle("S", pterm.FgLightCyan.ToStyle())).
 		Render()
+
+	if err != nil {
+		log.Fatalf("The following error occurred: %v\n", err.Error())
+	}
+
 	fmt.Println()
 	fmt.Println("The retro system file manager.")
 	fmt.Println("Run `retros help` to view available commands.")
