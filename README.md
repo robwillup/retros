@@ -36,26 +36,26 @@ or use one of the commands below:
 
 ```bash
 # wget
-wget https://github.com/robwillup/retros/releases/download/v1.0.4/retros \
+wget https://github.com/robwillup/retros/releases/download/v1.0.5/retros \
 && chmod +x retros
 ```
 
 ```bash
 # cURL
-curl -L https://github.com/robwillup/retros/releases/download/v1.0.4/retros \
+curl -L https://github.com/robwillup/retros/releases/download/v1.0.5/retros \
 -o retros && chmod +x retros
 ```
 
 ### Windows
 
 ```powershell
-iwr "https://github.com/robwillup/retros/releases/download/v1.0.4/retros.exe" -o "retros.exe"
+iwr "https://github.com/robwillup/retros/releases/download/v1.0.5/retros.exe" -o "retros.exe"
 ```
 
 ### macOS
 
 ```bash
-curl -L https://github.com/robwillup/retros/releases/download/v1.0.4/osx-retros \
+curl -L https://github.com/robwillup/retros/releases/download/v1.0.5/osx-retros \
 -o retros && chmod +x retros
 ```
 

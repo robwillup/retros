@@ -25,6 +25,8 @@ import (
 	"github.com/robwillup/retros/src/config"
 	"github.com/robwillup/retros/src/filesystem"
 	"github.com/spf13/cobra"
+	"github.com/pterm/pterm"
+	"github.com/pterm/pterm/putils"
 )
 
 // rootCmd represents the base command when called without any subcommands
@@ -59,5 +61,15 @@ func checkConfig() {
 		return
 	}
 
-	fmt.Println("RetroS: File manager for retro gamers")
+	// Initialize a big text display with the letters "P" and "Term"
+	// "P" is displayed in cyan and "Term" is displayed in light magenta
+	fmt.Println()
+	pterm.DefaultBigText.WithLetters(
+		putils.LettersFromStringWithStyle("Retro", pterm.FgGreen.ToStyle()),
+		putils.LettersFromStringWithStyle("S", pterm.FgLightCyan.ToStyle())).
+		Render()
+	fmt.Println()
+	fmt.Println("The retro system file manager.")
+	fmt.Println("Run `retros help` to view available commands.")
+	fmt.Println()
 }
