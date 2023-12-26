@@ -18,6 +18,7 @@ package cmd
 
 import (
 	"fmt"
+	"log"
 
 	"github.com/spf13/cobra"
 )
@@ -32,20 +33,26 @@ retros rm Game.gba
 
 Removes Game.gba from $HOME/RetroPie/roms/gba.`,
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("rm called")
+		if len(args) < 1 {
+			log.Fatalf("Path of the ROM file to be removed is required.")
+		}
+
+		emulator, err := cmd.Flags().GetString("emulator")
+
+		if err != nil {
+			log.Fatalln(err)
+		}
+
+		// Remove
 	},
 }
 
 func init() {
 	rootCmd.AddCommand(rmCmd)
+	var emulator string
+	rmCmd.PersistentFlags().StringVarP(&emulator, "emulator", "e", "", "The emulator from where the ROM file will be removed.")
+}
 
-	// Here you will define your flags and configuration settings.
-
-	// Cobra supports Persistent Flags which will work for this command
-	// and all subcommands, e.g.:
-	// rmCmd.PersistentFlags().String("foo", "", "A help for foo")
-
-	// Cobra supports local flags which will only run when this command
-	// is called directly, e.g.:
-	// rmCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+func remove(fsPath, emulator string) error {
+	// TODO: Add code to remove the file
 }
