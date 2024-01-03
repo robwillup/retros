@@ -17,7 +17,6 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 package cmd
 
 import (
-	"fmt"
 	"log"
 
 	"github.com/spf13/cobra"
@@ -37,7 +36,7 @@ Removes Game.gba from $HOME/RetroPie/roms/gba.`,
 			log.Fatalf("Path of the ROM file to be removed is required.")
 		}
 
-		emulator, err := cmd.Flags().GetString("emulator")
+		_, err := cmd.Flags().GetString("emulator")
 
 		if err != nil {
 			log.Fatalln(err)
@@ -55,4 +54,5 @@ func init() {
 
 func remove(fsPath, emulator string) error {
 	// TODO: Add code to remove the file
+	return nil
 }
