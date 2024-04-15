@@ -1,7 +1,7 @@
 # RetroS
 
-RetroS is a tool to help you manage files with your retro gaming setup
-on remote or local machines.
+RetroS is a tool to help manage files for retro gaming emulation on remote or
+local machines.
 
 ![build workflow](https://github.com/robwillup/retros/actions/workflows/build.yml/badge.svg)
 ![Latest Release](https://img.shields.io/github/v/release/robwillup/retros?label=RetroS%20(Linux%20binary)&sort=semver)
@@ -19,18 +19,13 @@ on remote or local machines.
 Early development. There are many features to be added and there may be bugs in
 current versions.
 
-## Piracy
-
-This project does NOT provide any game ROM files and does not encourage obtaining
-such files illegally.
-
 ## Download
 
 You can download the latest binary from [releases](https://github.com/robwillup/retros/releases)
 or use one of the commands below:
 
 > For Windows, you may need to download using the command below. When downloading
-> from the browser, Windows Defender may remove it as a virus.
+> from the browser, Windows Defender may remove it as a virus.v
 
 ### Linux
 
@@ -133,3 +128,7 @@ RetroPie besides ROMs.
 
 Much is still under consideration, but some ideas are being added to the
 [project here](https://github.com/users/robwillup/projects/1).
+
+## Disclaimer
+
+This project does NOT provide any game ROM files.
