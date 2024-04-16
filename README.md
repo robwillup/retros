@@ -112,6 +112,14 @@ To list ROM files for specific emulators:
 retros ls -e=mastersystem
 ```
 
+### Remove
+
+Removes specific ROM files:
+
+```bash
+retros rm "Game with awesome sprites.gba"
+```
+
 ### Check
 
 The `check` command verifies the integrity of ROM files.
