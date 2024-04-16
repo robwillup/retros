@@ -122,3 +122,21 @@ func CopyROMToRemote(client *ssh.Client, localFilePath, remoteFilePath string) e
 
 	return nil
 }
+
+func DeleteROMFromRemote(client *ssh.Client, remoteFilePath string) error {
+	sftpClient, err := sftp.NewClient(client)
+
+	if err != nil {
+		return err
+	}
+
+	defer sftpClient.Close()
+
+	err = sftpClient.Remove(remoteFilePath)
+
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
