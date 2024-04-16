@@ -18,7 +18,11 @@ package cmd
 
 import (
 	"log"
+	"path"
 
+	"github.com/robwillup/retros/src/config"
+	"github.com/robwillup/retros/src/emulators"
+	"github.com/robwillup/retros/src/sshutils"
 	"github.com/spf13/cobra"
 )
 
@@ -36,13 +40,17 @@ Removes Game.gba from $HOME/RetroPie/roms/gba.`,
 			log.Fatalf("Path of the ROM file to be removed is required.")
 		}
 
-		_, err := cmd.Flags().GetString("emulator")
+		emulator, err := cmd.Flags().GetString("emulator")
 
 		if err != nil {
 			log.Fatalln(err)
 		}
 
-		// Remove
+		err = remove(args[0], emulator)
+
+		if err != nil {
+			log.Fatalf("Failed to delete ROM file. Error: %v", err)
+		}
 	},
 }
 
@@ -52,7 +60,32 @@ func init() {
 	rmCmd.PersistentFlags().StringVarP(&emulator, "emulator", "e", "", "The emulator from where the ROM file will be removed.")
 }
 
-func remove(fsPath, emulator string) error {
-	// TODO: Add code to remove the file
+func remove(romFile, emulator string) error {
+	romsPath := "/home/pi/RetroPie/roms/"
+
+	if emulator == "" {
+		emulator = emulators.FindEmulatorFromExtension(romFile)
+	}
+
+	romPath := path.Join(romsPath, emulator, romFile)
+
+	config, err := config.Read()
+
+	if err != nil {
+		return err
+	}
+
+	client, err := sshutils.EstablishSSHConnection(config)
+
+	if err != nil {
+		return err
+	}
+
+	err = sshutils.DeleteROMFromRemote(client, romPath)
+
+	if err != nil {
+		return err
+	}
+
 	return nil
 }
