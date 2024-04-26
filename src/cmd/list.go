@@ -189,8 +189,7 @@ func runFind(dirPath string, client *ssh.Client) (string, error) {
 
 	err := filepath.Walk(dirPath, func(path string, info os.FileInfo, err error) error {
 		if err == nil && !info.IsDir() && !strings.HasSuffix(info.Name(), ".state") && !strings.HasSuffix(info.Name(), ".srm") {
-			fileName := strings.TrimSuffix(info.Name(), filepath.Ext(info.Name()))
-			fileNames = append(fileNames, fileName)
+			fileNames = append(fileNames, info.Name())
 		}
 		return nil
 	})
