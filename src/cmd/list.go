@@ -130,7 +130,7 @@ func listROMFiles(emulator string) (string, error) {
 }
 
 func runLs(dirPath string, client *ssh.Client) (string, error) {
-	lsCmd := "ls " + dirPath + " --ignore=*.state"
+	lsCmd := "ls " + dirPath + " --ignore=*.state*" + " --ignore=*.srm"
 
 	if client != nil {
 		output, err := sshutils.ExecuteRemoteCommand(client, lsCmd)
