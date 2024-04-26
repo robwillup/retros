@@ -19,9 +19,10 @@ package cmd
 import (
 	"fmt"
 	"log"
-	"os/exec"
+	"os"
 	"path"
 	"path/filepath"
+	"sort"
 	"strings"
 
 	"github.com/robwillup/retros/src/clientos"
@@ -72,6 +73,7 @@ func listROMFiles(emulator string) (string, error) {
 
 	config, err := config.Read()
 
+	// Target is the local machine
 	if config.Host == "" {
 		romsPath = filepath.Join(clientos.GetHomeDir(), "RetroPie", "roms")
 	}
@@ -144,18 +146,32 @@ func runLs(dirPath string, client *ssh.Client) (string, error) {
 	}
 
 	// Target is the local machine
-	cmd := exec.Command("ls", dirPath)
-	out, err := cmd.Output()
+	var subDirs []string
+
+	err := filepath.Walk(dirPath, func(path string, info os.FileInfo, err error) error {
+		if err == nil && info.IsDir() {
+			subDirs = append(subDirs, info.Name())
+		}
+		return nil
+	})
 
 	if err != nil {
-		log.Printf("An error occurred when reading %s. Error: %v\n", dirPath, err.Error())
+		return "", err
 	}
 
-	return string(out), nil
+	sort.Strings(subDirs)
+
+	var sb strings.Builder
+
+	for _, dir := range subDirs {
+		_, _ = sb.WriteString(fmt.Sprintf("%s\n", dir))
+	}
+
+	return string(sb.String()), nil
 }
 
 func runFind(dirPath string, client *ssh.Client) (string, error) {
-	findCmd := "find " + dirPath + " -type f ! -name '*.state*' ! -name '*.srm' -exec basename {} \\;"
+	findCmd := "find " + dirPath + " -type f ! -name '*.state*' ! -name '*.srm' -exec basename {} \\; | sort"
 
 	// Target is a remote machine
 	if client != nil {
@@ -169,12 +185,27 @@ func runFind(dirPath string, client *ssh.Client) (string, error) {
 	}
 
 	// Target is the local machine
-	cmd := exec.Command("find", dirPath, "--ignore=*.state")
-	out, err := cmd.Output()
+	var fileNames []string
+
+	err := filepath.Walk(dirPath, func(path string, info os.FileInfo, err error) error {
+		if err == nil && !info.IsDir() && !strings.HasSuffix(info.Name(), ".state") && !strings.HasSuffix(info.Name(), ".srm") {
+			fileName := strings.TrimSuffix(info.Name(), filepath.Ext(info.Name()))
+			fileNames = append(fileNames, fileName)
+		}
+		return nil
+	})
 
 	if err != nil {
-		log.Printf("An error occurred when reading %s. Error: %v\n", dirPath, err.Error())
+		return "", err
 	}
 
-	return string(out), nil
+	sort.Strings(fileNames)
+
+	var sb strings.Builder
+
+	for _, fileName := range fileNames {
+		_, _ = sb.WriteString(fmt.Sprintf("%s\n", fileName))
+	}
+
+	return string(sb.String()), nil
 }
