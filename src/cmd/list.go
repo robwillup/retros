@@ -90,7 +90,7 @@ func listROMFiles(emulator string) (string, error) {
 	}
 
 	if emulator != "" {
-		output, err := runLs(path.Join(romsPath, emulator), client)
+		output, err := runFind(path.Join(romsPath, emulator), client)
 
 		if err != nil {
 			return "", err
@@ -112,7 +112,7 @@ func listROMFiles(emulator string) (string, error) {
 
 	for _, emu := range emulators {
 		if emu != "" {
-			output, err = runLs(path.Join(romsPath, emu), client)
+			output, err = runFind(path.Join(romsPath, emu), client)
 
 			if err != nil {
 				return "", err
@@ -130,8 +130,9 @@ func listROMFiles(emulator string) (string, error) {
 }
 
 func runLs(dirPath string, client *ssh.Client) (string, error) {
-	lsCmd := "find " + dirPath + " -type f ! -name '*.state*' ! -name '*.srm' -exec basename {} \\;"
+	lsCmd := "ls " + dirPath
 
+	// Target is a remote machine
 	if client != nil {
 		output, err := sshutils.ExecuteRemoteCommand(client, lsCmd)
 
@@ -142,8 +143,33 @@ func runLs(dirPath string, client *ssh.Client) (string, error) {
 		return output, nil
 	}
 
-	cmd := exec.Command("ls", dirPath, "--ignore=*.state")
+	// Target is the local machine
+	cmd := exec.Command("ls", dirPath)
+	out, err := cmd.Output()
 
+	if err != nil {
+		log.Printf("An error occurred when reading %s. Error: %v\n", dirPath, err.Error())
+	}
+
+	return string(out), nil
+}
+
+func runFind(dirPath string, client *ssh.Client) (string, error) {
+	findCmd := "find " + dirPath + " -type f ! -name '*.state*' ! -name '*.srm' -exec basename {} \\;"
+
+	// Target is a remote machine
+	if client != nil {
+		output, err := sshutils.ExecuteRemoteCommand(client, findCmd)
+
+		if err != nil {
+			log.Printf("Failed to list ROM files under: %s\n\n", dirPath)
+		}
+
+		return output, nil
+	}
+
+	// Target is the local machine
+	cmd := exec.Command("find", dirPath, "--ignore=*.state")
 	out, err := cmd.Output()
 
 	if err != nil {
