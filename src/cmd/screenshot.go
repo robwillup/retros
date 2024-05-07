@@ -1,14 +1,32 @@
 /*
-Copyright © 2024 NAME HERE <EMAIL ADDRESS>
+Copyright © 2023 Robson William
 
+This program is free software: you can redistribute it and/or modify
+it under the terms of the GNU General Public License as published by
+the Free Software Foundation, either version 3 of the License, or
+(at your option) any later version.
+
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+GNU General Public License for more details.
+
+You should have received a copy of the GNU General Public License
+along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 package cmd
 
 import (
 	"fmt"
+	"log"
+	"os"
 
+	"github.com/robwillup/retros/src/config"
+	"github.com/robwillup/retros/src/sshutils"
 	"github.com/spf13/cobra"
 )
+
+const screenshotSourcePath = "/opt/retropie/configs/all/retroarch/screenshots"
 
 // screenshotCmd represents the screenshot command
 var screenshotCmd = &cobra.Command{
@@ -22,21 +40,74 @@ For example:
 retros cp screenshot . --overwrite --clear
 
 The above command will copy the screenshots from RetroPie to the current directory, overwrite duplicates and clear the origin.`,
+
 	Run: func(cmd *cobra.Command, args []string) {
-		fmt.Println("screenshot called")
+		dest, err := cmd.Flags().GetString("destination")
+
+		if err != nil {
+			log.Fatalln(err)
+		}
+
+		overwrite, err := cmd.Flags().GetBool("overwrite")
+
+		if err != nil {
+			log.Fatalln(err)
+		}
+
+		clear, err := cmd.Flags().GetBool("clear")
+
+		if err != nil {
+			log.Fatalln(err)
+		}
+
+		if dest == "" {
+			dest, err = os.Getwd()
+			if err != nil {
+				log.Fatalln(err)
+			}
+		}
+
+		copyScreenshots(dest, overwrite, clear)
 	},
 }
 
 func init() {
 	cpCmd.AddCommand(screenshotCmd)
+	var destination string
+	var overwrite   bool
+	var clear       bool
 
-	// Here you will define your flags and configuration settings.
+	screenshotCmd.PersistentFlags().StringVarP(&destination, "destination", "d", "", "The destination where the screenshot files will be copied to. When empty, the current directory is used")
+	screenshotCmd.PersistentFlags().BoolVarP(&overwrite, "overwrite", "o", false, "Whether same file should be overwritten. When false, the file is skipped")
+	screenshotCmd.PersistentFlags().BoolVarP(&clear, "clear", "c", false, "Whether to delete files from source once they're copied. Default is false")
+}
 
-	// Cobra supports Persistent Flags which will work for this command
-	// and all subcommands, e.g.:
-	// screenshotCmd.PersistentFlags().String("foo", "", "A help for foo")
+func copyScreenshots(dest string, overwrite, clear bool) error {
+	fmt.Printf("Copy screenshots to %s\n", dest)
+	fmt.Printf("Overwrite files: %t\n", overwrite)
+	fmt.Printf("Clear files: %t\n", clear)
 
-	// Cobra supports local flags which will only run when this command
-	// is called directly, e.g.:
-	// screenshotCmd.Flags().BoolP("toggle", "t", false, "Help message for toggle")
+	config, err := config.Read()
+
+	if err != nil {
+		return err
+	}
+
+	client, err := sshutils.EstablishSSHConnection(config)
+
+	if err != nil {
+		return err
+	}
+
+	lsCmd := "ls " + screenshotSourcePath
+
+	output, err := sshutils.ExecuteRemoteCommand(client, lsCmd)
+
+	if err != nil {
+		return err
+	}
+
+	println(output)
+
+	return nil
 }
