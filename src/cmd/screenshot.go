@@ -13,13 +13,15 @@ import (
 // screenshotCmd represents the screenshot command
 var screenshotCmd = &cobra.Command{
 	Use:   "screenshot",
-	Short: "A brief description of your command",
-	Long: `A longer description that spans multiple lines and likely contains examples
-and usage of using your command. For example:
+	Short: "Copies screenshots from the RetroPie setup.",
+	Long: `Copies screenshots from the RetroPie setup.
+If the destination already contains a file with the same name, that file can be skipped or overwritten.
+It's possible to specify whether files in the origin should be deleted.
+For example:
 
-Cobra is a CLI library for Go that empowers applications.
-This application is a tool to generate the needed files
-to quickly create a Cobra application.`,
+retros cp screenshot . --overwrite --clear
+
+The above command will copy the screenshots from RetroPie to the current directory, overwrite duplicates and clear the origin.`,
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("screenshot called")
 	},
