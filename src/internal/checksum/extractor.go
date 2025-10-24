@@ -7,8 +7,8 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/robwillup/retros/src/clientos"
-	"github.com/robwillup/retros/src/filesystem"
+	"github.com/robwillup/retros/src/internal/clientos"
+	"github.com/robwillup/retros/src/internal/filesystem"
 	"gopkg.in/yaml.v3"
 )
 

@@ -2,12 +2,13 @@ package checksum
 
 import "testing"
 
+//goland:noinspection SpellCheckingInspection,SpellCheckingInspection,SpellCheckingInspection
 var keystone = ROM{
-	Name: "Keystone Kapers (USA).a26",
-	MD5: "be929419902e21bd7830a7a7d746195d",
-	SHA1: "3eefc193dec3b242bcfd43f5a4d9f023e55378a4",
+	Name:   "Keystone Kapers (USA).a26",
+	MD5:    "be929419902e21bd7830a7a7d746195d",
+	SHA1:   "3eefc193dec3b242bcfd43f5a4d9f023e55378a4",
 	SHA256: "",
-	Size: 4096,
+	Size:   4096,
 }
 
 func TestGetChecksums(t *testing.T) {

@@ -25,9 +25,9 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/robwillup/retros/src/clientos"
-	"github.com/robwillup/retros/src/config"
-	"github.com/robwillup/retros/src/sshutils"
+	"github.com/robwillup/retros/src/internal/clientos"
+	"github.com/robwillup/retros/src/internal/config"
+	"github.com/robwillup/retros/src/internal/sshutils"
 	"github.com/spf13/cobra"
 	"golang.org/x/crypto/ssh"
 )

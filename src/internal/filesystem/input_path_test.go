@@ -7,9 +7,9 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/robwillup/retros/src/clientos"
-	"github.com/robwillup/retros/src/config"
-	"github.com/robwillup/retros/src/sshutils"
+	"github.com/robwillup/retros/src/internal/clientos"
+	"github.com/robwillup/retros/src/internal/config"
+	"github.com/robwillup/retros/src/internal/sshutils"
 )
 
 var configPath string = filepath.Join(clientos.GetHomeDir(), ".retros/", config.CONFIG_FILE_NAME)

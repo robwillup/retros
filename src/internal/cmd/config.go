@@ -14,6 +14,8 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
+
+// Package cmd handles CLI commands.
 package cmd
 
 import (
@@ -22,9 +24,9 @@ import (
 	"path"
 	"strings"
 
-	"github.com/robwillup/retros/src/clientos"
-	"github.com/robwillup/retros/src/config"
-	"github.com/robwillup/retros/src/sshutils"
+	"github.com/robwillup/retros/src/internal/clientos"
+	"github.com/robwillup/retros/src/internal/config"
+	"github.com/robwillup/retros/src/internal/sshutils"
 	"github.com/spf13/cobra"
 )
 

@@ -1,5 +1,5 @@
 /*
-Copyright © 2023 Robson William
+Copyright © 2025 Robson William
 
 This program is free software: you can redistribute it and/or modify
 it under the terms of the GNU General Public License as published by
@@ -14,6 +14,8 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
+
+// Package cmd abstracts CLI commands
 package cmd
 
 import (
@@ -24,9 +26,9 @@ import (
 
 	"github.com/pterm/pterm"
 	"github.com/pterm/pterm/putils"
-	"github.com/robwillup/retros/src/clientos"
-	"github.com/robwillup/retros/src/config"
-	"github.com/robwillup/retros/src/filesystem"
+	"github.com/robwillup/retros/src/internal/clientos"
+	"github.com/robwillup/retros/src/internal/config"
+	"github.com/robwillup/retros/src/internal/filesystem"
 	"github.com/spf13/cobra"
 )
 

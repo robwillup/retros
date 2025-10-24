@@ -20,9 +20,9 @@ import (
 	"log"
 	"path"
 
-	"github.com/robwillup/retros/src/config"
-	"github.com/robwillup/retros/src/emulators"
-	"github.com/robwillup/retros/src/sshutils"
+	"github.com/robwillup/retros/src/internal/config"
+	"github.com/robwillup/retros/src/internal/emulators"
+	"github.com/robwillup/retros/src/internal/sshutils"
 	"github.com/spf13/cobra"
 )
 

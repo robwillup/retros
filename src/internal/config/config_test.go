@@ -8,9 +8,9 @@ import (
 	"path/filepath"
 	"testing"
 
-	"github.com/robwillup/retros/src/clientos"
-	"github.com/robwillup/retros/src/filesystem"
-	"github.com/robwillup/retros/src/sshutils"
+	"github.com/robwillup/retros/src/internal/clientos"
+	"github.com/robwillup/retros/src/internal/filesystem"
+	"github.com/robwillup/retros/src/internal/sshutils"
 )
 
 var configPath string = filepath.Join(clientos.GetHomeDir(), ".retros/", CONFIG_FILE_NAME)
@@ -81,7 +81,7 @@ func TestRead(t *testing.T) {
 		Host:     "test",
 		Username: "test",
 		KeyPath:  "test",
-		Port: 0,
+		Port:     0,
 	}
 
 	err := Create(expected)

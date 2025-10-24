@@ -1,5 +1,5 @@
 /*
-Copyright © 2023 Robson William
+Copyright © 2025 Robson William
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -21,7 +21,9 @@ THE SOFTWARE.
 */
 package main
 
-import "github.com/robwillup/retros/src/cmd"
+import (
+	"github.com/robwillup/retros/src/internal/cmd"
+)
 
 func main() {
 	cmd.Execute()

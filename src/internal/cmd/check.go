@@ -14,6 +14,8 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
+
+// Package cmd handles CLI commands
 package cmd
 
 import (
@@ -23,9 +25,9 @@ import (
 	"path"
 	"path/filepath"
 
-	"github.com/robwillup/retros/src/checksum"
-	"github.com/robwillup/retros/src/emulators"
-	"github.com/robwillup/retros/src/filesystem"
+	checksum2 "github.com/robwillup/retros/src/internal/checksum"
+	"github.com/robwillup/retros/src/internal/emulators"
+	"github.com/robwillup/retros/src/internal/filesystem"
 	"github.com/spf13/cobra"
 )
 
@@ -95,13 +97,13 @@ func verifyFileIntegrity(fsPath string) error {
 		return errors.New(fmt.Sprintf("The file extension of '%s' is not yet supported.", filepath.Base(fsPath)))
 	}
 
-	originalChecksums, err := checksum.GetChecksums(emulator, "")
+	originalChecksums, err := checksum2.GetChecksums(emulator, "")
 
 	if err != nil {
 		return err
 	}
 
-	localFile, err := checksum.CalcChecksum(fsPath)
+	localFile, err := checksum2.CalcChecksum(fsPath)
 
 	if err != nil {
 		return err

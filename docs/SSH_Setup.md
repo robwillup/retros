@@ -22,7 +22,7 @@ sudo systemctl start ssh
 ssh-keygen
 ```
 
-Follow the prompts to generate the keys. By default this will create the
+Follow the prompts to generate the keys. By default, this will create the
 key pair in the `~/.ssh` directory.
 
 ### Authorizing the Public Key

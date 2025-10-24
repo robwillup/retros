@@ -7,7 +7,7 @@ local machines.
 ![Latest Release](https://img.shields.io/github/v/release/robwillup/retros?label=RetroS%20(Linux%20binary)&sort=semver)
 ![Latest Release](https://img.shields.io/github/v/release/robwillup/retros?label=RetroS%20(Windows%20binary)&sort=semver)
 
-<div align="center">
+<div  style="text-align: center;">
     <img
         src="https://repository-images.githubusercontent.com/709978523/1ebe6c81-8dfd-499a-a194-4bbfefe65243"
         alt="RetroS" style="width: 550px;"/>
