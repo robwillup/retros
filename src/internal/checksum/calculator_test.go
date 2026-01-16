@@ -5,14 +5,14 @@ import "testing"
 //goland:noinspection SpellCheckingInspection
 var checksum = ROM{
 	Name:   "main.go",
-	MD5:    "3c6498d3c1a2ed05106815bffac3e235",
-	SHA1:   "09d65f6d4a4dc451fd70c01028a06fc5d0adde7c",
-	SHA256: "eb70de22ccf7b3ca3a56886d7e5adcb3e4f63ccbf1d7f6b5e2413935c38b8164",
-	Size:   1154,
+	MD5:    "28766063f362c5d97e2288f3a3be3e78",
+	SHA1:   "6c3c98f00928520e80efcb2aa1cb8a11ba0f5d6f",
+	SHA256: "14ae8e67feedb5c9f2bae2d21d9b87260ec6922c6717210da39fe7b4e401d043",
+	Size:   1168,
 }
 
 func TestCalcChecksum(t *testing.T) {
-	actual, err := CalcChecksum("../main.go")
+	actual, err := CalcChecksum("../../main.go")
 
 	if err != nil {
 		t.Fatalf("Failed to TestCalcChecksum().\nError: %v\n", err)

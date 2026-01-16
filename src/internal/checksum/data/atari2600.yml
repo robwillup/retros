@@ -3384,8 +3384,7 @@ c31a17942d162b80962cb1f7571cd1d5:
     sha256: ""
     size: 4096
 c032c2bd7017fdfbba9a105ec50f800e:
-  # noinspection SpellCheckingInspection
-  name: Thwocker (USA) (Proto).a26
+    name: Thwocker (USA) (Proto).a26
     md5: c032c2bd7017fdfbba9a105ec50f800e
     sha1: 53ee70d4b35ee3df3ffb95fa360bddb4f2f56ab2
     sha256: 1eeac0099d432c02f4820ae0a620c4148f30c2c02f570885097d5396219b1f17
