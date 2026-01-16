@@ -32,6 +32,8 @@ import (
 	"golang.org/x/crypto/ssh"
 )
 
+const LOCAL_MACHINE = ""
+
 // lsCmd represents the ls command
 var lsCmd = &cobra.Command{
 	Use:   "ls [OPTIONS]",
@@ -39,8 +41,9 @@ var lsCmd = &cobra.Command{
 	Long: `Lists ROM files in the remote machine where RetroPie is installed.
 For example:
 
-retros ls             Lists all ROM files
-retros ls -p=snes     Lists all ROM files under snes/
+retros ls                          Lists all ROM files
+retros ls -e=snes                  Lists all ROM files under snes/
+retros ls --emulator=mastersystem  Lists all ROM files under mastersystem/
 `,
 	Run: func(cmd *cobra.Command, args []string) {
 		emulator, err := cmd.Flags().GetString("emulator")
@@ -73,8 +76,7 @@ func listROMFiles(emulator string) (string, error) {
 
 	config, err := config.Read()
 
-	// Target is the local machine
-	if config.Host == "" {
+	if config.Host == LOCAL_MACHINE {
 		romsPath = filepath.Join(clientos.GetHomeDir(), "RetroPie", "roms")
 	}
 
@@ -84,7 +86,7 @@ func listROMFiles(emulator string) (string, error) {
 
 	var client *ssh.Client = nil
 
-	if config.Host != "" {
+	if config.Host != LOCAL_MACHINE {
 		client, err = sshutils.EstablishSSHConnection(config)
 		if err != nil {
 			return "", err
@@ -171,7 +173,7 @@ func runLs(dirPath string, client *ssh.Client) (string, error) {
 }
 
 func runFind(dirPath string, client *ssh.Client) (string, error) {
-	findCmd := "find " + dirPath + " -type f ! -name '*.state*' ! -name '*.srm' -exec basename {} \\; | sort"
+	findCmd := "find " + dirPath + " -type f ! -name '*.state*' ! -name '*.srm' ! -name '*.xml' ! -name '*.txt' -exec basename {} \\; | sort"
 
 	// Target is a remote machine
 	if client != nil {
