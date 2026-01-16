@@ -63,7 +63,24 @@ where RetroPie is running. You can configure that by running:
 retros cf
 ```
 
-RetroS assumes your `SSH private key` is in the default path, i.e.: `$HOME/.ssh/id_rsa`.
+### SSH keys
+
+To be able to connect to the remote machine securely, you will need to create an SSH key pair and place the private key
+on your machine and the public key in the remote machine. You can follow these steps:
+
+1. Create the key pair
+
+```shell
+ssh-keygen -t rsa -b 4096
+```
+
+2. Copy the public key to the remote machine
+
+```shell
+ssh-copy-id pi@RETROPIE_IP_ADDRESS
+```
+
+This installs your public key in the remote machine's `~/.ssh/authorized_keys` file.
 
 ## Commands
 
