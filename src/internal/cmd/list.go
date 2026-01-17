@@ -49,7 +49,7 @@ retros ls --emulator=mastersystem  Lists all ROM files under mastersystem/
 		emulator, err := cmd.Flags().GetString("emulator")
 
 		if err != nil {
-			log.Fatalf("Failed to get cp flags: Error %t\n", err)
+			log.Fatalf("Failed to get ls flags: Error %t\n", err)
 		}
 
 		output, err := listROMFiles(emulator)
@@ -58,7 +58,7 @@ retros ls --emulator=mastersystem  Lists all ROM files under mastersystem/
 			log.Fatalf("Failed to list ROM files. Error: %v\n", err)
 		}
 
-		fmt.Printf("%s games found: \n", strings.ToUpper(emulator))
+		fmt.Printf("%s games found:\n", strings.ToUpper(emulator))
 		fmt.Println()
 
 		fmt.Println(output)
@@ -103,7 +103,7 @@ func listROMFiles(emulator string) (string, error) {
 		return output, nil
 	}
 
-	output, err := runLs(romsPath, client)
+	output, err := runLs(romsPath, false, client)
 
 	if err != nil {
 		return "", err
@@ -133,21 +133,20 @@ func listROMFiles(emulator string) (string, error) {
 	return sb.String(), nil
 }
 
-func runLs(dirPath string, client *ssh.Client) (string, error) {
+func runLs(dirPath string, dir bool, client *ssh.Client) (string, error) {
 	lsCmd := "ls " + dirPath
 
-	// Target is a remote machine
 	if client != nil {
 		output, err := sshutils.ExecuteRemoteCommand(client, lsCmd)
 
 		if err != nil {
 			log.Printf("Failed to list ROM files under: %s\n\n", dirPath)
+			return "", err
 		}
 
 		return output, nil
 	}
 
-	// Target is the local machine
 	var subDirs []string
 
 	err := filepath.Walk(dirPath, func(path string, info os.FileInfo, err error) error {
