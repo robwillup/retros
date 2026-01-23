@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 	"path/filepath"
+	"strings"
 
 	"github.com/robwillup/retros/src/internal/clientos"
 	"github.com/robwillup/retros/src/internal/config"
@@ -68,11 +69,25 @@ func listEmulators(all bool) (string, error) {
 		}
 	}
 
-	if all {
-		return "TODO", err
-	}
-
 	output, err := runLs(emulatorsPath, true, client)
 
-	return output, err
+	if all {
+		return output, err
+	}
+
+	emulators := strings.Split(output, "\n")
+	var emulatorsInUse string
+
+	for _, e := range emulators {
+		files, err := runFind(filepath.Join(emulatorsPath, e), client)
+		if err != nil {
+			return "", err
+		}
+
+		if files != "" {
+			emulatorsInUse = emulatorsInUse + e + "\n"
+		}
+	}
+
+	return emulatorsInUse, err
 }
