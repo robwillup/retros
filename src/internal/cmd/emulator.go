@@ -8,6 +8,7 @@ import (
 
 	"github.com/robwillup/retros/src/internal/clientos"
 	"github.com/robwillup/retros/src/internal/config"
+	emulators2 "github.com/robwillup/retros/src/internal/emulators"
 	"github.com/robwillup/retros/src/internal/sshutils"
 	"github.com/spf13/cobra"
 	"golang.org/x/crypto/ssh"
@@ -29,14 +30,15 @@ retros ls emulator --all  Lists all emulator systems.`,
 			log.Fatalf("Failed to get ls emulator flags: Error %t\n", err)
 		}
 
+		fmt.Println("Looking for emulator systems on the target machine ...\n")
+
 		output, err := listEmulators(all)
 
 		if err != nil {
 			log.Fatalf("Failed to list emulators: Error %t\n", err)
 		}
 
-		fmt.Println("Emulator systems found:")
-		fmt.Println()
+		fmt.Println("Emulator systems found:\n")
 		fmt.Println(output)
 	},
 }
@@ -71,11 +73,20 @@ func listEmulators(all bool) (string, error) {
 
 	output, err := runLs(emulatorsPath, true, client)
 
-	if all {
-		return output, err
+	if err != nil {
+		return "", err
 	}
 
 	emulators := strings.Split(output, "\n")
+
+	if all {
+		var emulatorsDisplayNames string
+		for _, e := range emulators {
+			emulatorsDisplayNames = emulatorsDisplayNames + emulators2.GetEmulatorDisplayName(e) + "\n"
+		}
+		return emulatorsDisplayNames, err
+	}
+
 	var emulatorsInUse string
 
 	for _, e := range emulators {
@@ -85,7 +96,7 @@ func listEmulators(all bool) (string, error) {
 		}
 
 		if files != "" {
-			emulatorsInUse = emulatorsInUse + e + "\n"
+			emulatorsInUse = emulatorsInUse + emulators2.GetEmulatorDisplayName(e) + "\n"
 		}
 	}
 
