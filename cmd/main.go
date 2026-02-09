@@ -22,9 +22,9 @@ THE SOFTWARE.
 package main
 
 import (
-	"github.com/robwillup/retros/internal/cmd"
+	"github.com/robwillup/retros/internal/commands"
 )
 
 func main() {
-	cmd.Execute()
+	commands.Execute()
 }

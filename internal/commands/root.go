@@ -15,8 +15,8 @@ You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-// Package cmd abstracts CLI commands
-package cmd
+// Package commands abstracts CLI commands
+package commands
 
 import (
 	"fmt"

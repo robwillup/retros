@@ -1,4 +1,4 @@
-package cmd
+package commands
 
 import (
 	"fmt"
@@ -27,10 +27,10 @@ retros ls emulator --all  Lists all emulator systems.`,
 		all, err := cmd.Flags().GetBool("all")
 
 		if err != nil {
-			log.Fatalf("Failed to get ls emulator flags: Error %t\n", err)
+			log.Fatalf("Failed to get ls emulator flags: Error %t", err)
 		}
 
-		fmt.Println("Looking for emulator systems on the target machine ...\n")
+		fmt.Println("Looking for emulator systems on the target machine ...")
 
 		output, err := listEmulators(all)
 
@@ -38,7 +38,7 @@ retros ls emulator --all  Lists all emulator systems.`,
 			log.Fatalf("Failed to list emulators: Error %t\n", err)
 		}
 
-		fmt.Println("Emulator systems found:\n")
+		fmt.Println("Emulator systems found:")
 		fmt.Println(output)
 	},
 }
