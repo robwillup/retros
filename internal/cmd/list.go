@@ -25,9 +25,9 @@ import (
 	"sort"
 	"strings"
 
-	"github.com/robwillup/retros/src/internal/clientos"
-	"github.com/robwillup/retros/src/internal/config"
-	"github.com/robwillup/retros/src/internal/sshutils"
+	"github.com/robwillup/retros/internal/clientos"
+	"github.com/robwillup/retros/internal/config"
+	"github.com/robwillup/retros/internal/sshutils"
 	"github.com/spf13/cobra"
 	"golang.org/x/crypto/ssh"
 )
@@ -172,7 +172,11 @@ func runLs(dirPath string, dir bool, client *ssh.Client) (string, error) {
 }
 
 func runFind(dirPath string, client *ssh.Client) (string, error) {
-	findCmd := "find " + dirPath + " -type f ! -name '*.state*' ! -name '*.srm' ! -name '*.xml' ! -name '*.txt' -exec basename {} \\; | sort"
+	findCmd := "find " +
+		dirPath +
+		" -type f " +
+		"! -name '*.state*' ! -name '*.srm' ! -name '*.xml' ! -name '*.txt' ! -name '*.sav' ! -name '*.fs' ! -name '*.hi' " +
+		"-exec basename {} \\; | sort"
 
 	// Target is a remote machine
 	if client != nil {

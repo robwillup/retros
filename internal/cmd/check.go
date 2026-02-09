@@ -25,9 +25,9 @@ import (
 	"path"
 	"path/filepath"
 
-	checksum2 "github.com/robwillup/retros/src/internal/checksum"
-	"github.com/robwillup/retros/src/internal/emulators"
-	"github.com/robwillup/retros/src/internal/filesystem"
+	"github.com/robwillup/retros/internal/checksum"
+	"github.com/robwillup/retros/internal/emulators"
+	"github.com/robwillup/retros/internal/filesystem"
 	"github.com/spf13/cobra"
 )
 
@@ -97,13 +97,13 @@ func verifyFileIntegrity(fsPath string) error {
 		return errors.New(fmt.Sprintf("The file extension of '%s' is not yet supported.", filepath.Base(fsPath)))
 	}
 
-	originalChecksums, err := checksum2.GetChecksums(emulator, "")
+	originalChecksums, err := checksum.GetChecksums(emulator, "")
 
 	if err != nil {
 		return err
 	}
 
-	localFile, err := checksum2.CalcChecksum(fsPath)
+	localFile, err := checksum.CalcChecksum(fsPath)
 
 	if err != nil {
 		return err

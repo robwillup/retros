@@ -5,8 +5,8 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/robwillup/retros/src/internal/clientos"
-	"github.com/robwillup/retros/src/internal/sshutils"
+	"github.com/robwillup/retros/internal/clientos"
+	"github.com/robwillup/retros/internal/sshutils"
 	"gopkg.in/yaml.v3"
 )
 

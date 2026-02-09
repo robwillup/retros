@@ -56,6 +56,8 @@ func FindEmulatorFromExtension(romFile string) string {
 		fallthrough
 	case ".stx":
 		return "atarist"
+	case ".vb":
+		return "virtualbox"
 	default:
 		return ""
 	}
@@ -64,11 +66,11 @@ func FindEmulatorFromExtension(romFile string) string {
 func GetEmulatorDisplayName(shortName string) string {
 	switch shortName {
 	case "amstradcpc":
-		return "Amstrad CPC"
+		return "Amstrad CPC (folder name: amstradcpc)"
 	case "arcade":
-		return "Arcade"
+		return "Arcade (folder name: arcade)"
 	case "atari2600":
-		return "Atari 2600"
+		return "Atari 2600 (folder name: atari2600"
 	case "atari5200":
 		return "Atari 5200"
 	case "atari7800":

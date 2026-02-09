@@ -6,10 +6,10 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/robwillup/retros/src/internal/clientos"
-	"github.com/robwillup/retros/src/internal/config"
-	emulators2 "github.com/robwillup/retros/src/internal/emulators"
-	"github.com/robwillup/retros/src/internal/sshutils"
+	"github.com/robwillup/retros/internal/clientos"
+	"github.com/robwillup/retros/internal/config"
+	emulators2 "github.com/robwillup/retros/internal/emulators"
+	"github.com/robwillup/retros/internal/sshutils"
 	"github.com/spf13/cobra"
 	"golang.org/x/crypto/ssh"
 )

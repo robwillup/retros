@@ -26,9 +26,9 @@ import (
 
 	"github.com/pterm/pterm"
 	"github.com/pterm/pterm/putils"
-	"github.com/robwillup/retros/src/internal/clientos"
-	"github.com/robwillup/retros/src/internal/config"
-	"github.com/robwillup/retros/src/internal/filesystem"
+	"github.com/robwillup/retros/internal/clientos"
+	"github.com/robwillup/retros/internal/config"
+	"github.com/robwillup/retros/internal/filesystem"
 	"github.com/spf13/cobra"
 )
 

@@ -17,12 +17,13 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 package cmd
 
 import (
+	"fmt"
 	"log"
 	"path"
 
-	"github.com/robwillup/retros/src/internal/config"
-	"github.com/robwillup/retros/src/internal/emulators"
-	"github.com/robwillup/retros/src/internal/sshutils"
+	"github.com/robwillup/retros/internal/config"
+	"github.com/robwillup/retros/internal/emulators"
+	"github.com/robwillup/retros/internal/sshutils"
 	"github.com/spf13/cobra"
 )
 
@@ -68,6 +69,8 @@ func remove(romFile, emulator string) error {
 	}
 
 	romPath := path.Join(romsPath, emulator, romFile)
+
+	fmt.Println("Removing ROM file: ", romPath)
 
 	config, err := config.Read()
 

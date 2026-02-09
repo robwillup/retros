@@ -22,7 +22,7 @@ THE SOFTWARE.
 package main
 
 import (
-	"github.com/robwillup/retros/src/internal/cmd"
+	"github.com/robwillup/retros/internal/cmd"
 )
 
 func main() {
