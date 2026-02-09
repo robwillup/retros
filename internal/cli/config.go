@@ -15,8 +15,8 @@ You should have received a copy of the GNU General Public License
 along with this program. If not, see <http://www.gnu.org/licenses/>.
 */
 
-// Package commands handles CLI commands.
-package commands
+// Package cli handles CLI commands.
+package cli
 
 import (
 	"fmt"
@@ -36,7 +36,7 @@ const SSH_PORT = 22
 var cfCmd = &cobra.Command{
 	Use:   "cf",
 	Short: "Used for configuring RetroS",
-	Long: `This commands allows you to change different RetroS settings.
+	Long: `This command allows you to change different RetroS settings.
 For example:
 
 retros cf ssh         Configure SSH username, host, key path, etc.
