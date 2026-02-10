@@ -26,13 +26,13 @@ jobs:
       run: go test -v ./...
 
     - name: Build Go binary for Linux
-      run: go build -o bin/linux/retros ./cmd/retros
+      run: go build -o bin/linux/retros ../cmd/retros
 
     - name: Build Go binary for OSX
-      run: GOOS=darwin GOARCH=arm64 go build -o bin/mac/osx-retros ./cmd/retros
+      run: GOOS=darwin GOARCH=arm64 go build -o bin/mac/osx-retros ../cmd/retros
 
     - name: Build Go binary for Windows
-      run: GOOS=windows go build -o bin/windows/retros.exe ./cmd/retros
+      run: GOOS=windows go build -o bin/windows/retros.exe ../cmd/retros
 
     - name: Create Release
       id: create_release
