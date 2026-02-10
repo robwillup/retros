@@ -12,7 +12,7 @@ import (
 	"github.com/robwillup/retros/internal/sshutils"
 )
 
-var configPath string = filepath.Join(clientos.GetHomeDir(), ".retros/", config.CONFIG_FILE_NAME)
+var configPath string = filepath.Join(clientos.GetHomeDir(), ".retros/", config.ConfigFileName)
 
 func TestCheckDir(t *testing.T) {
 	expected := false

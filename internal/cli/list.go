@@ -32,7 +32,7 @@ import (
 	"golang.org/x/crypto/ssh"
 )
 
-const LOCAL_MACHINE = ""
+const LocalMachine = ""
 
 // lsCmd represents the ls command
 var lsCmd = &cobra.Command{
@@ -76,7 +76,7 @@ func listROMFiles(emulator string) (string, error) {
 
 	config, err := config.Read()
 
-	if config.Host == LOCAL_MACHINE {
+	if config.Host == LocalMachine {
 		romsPath = filepath.Join(clientos.GetHomeDir(), "RetroPie", "roms")
 	}
 
@@ -86,7 +86,7 @@ func listROMFiles(emulator string) (string, error) {
 
 	var client *ssh.Client = nil
 
-	if config.Host != LOCAL_MACHINE {
+	if config.Host != LocalMachine {
 		client, err = sshutils.EstablishSSHConnection(config)
 		if err != nil {
 			return "", err

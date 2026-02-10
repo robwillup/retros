@@ -10,7 +10,7 @@ import (
 	"gopkg.in/yaml.v3"
 )
 
-const CONFIG_FILE_NAME = ".retros.yml"
+const ConfigFileName = ".retros.yml"
 
 func Create(config sshutils.SSHConfig) error {
 	configPath := filepath.Join(clientos.GetHomeDir(), ".retros")
@@ -20,7 +20,7 @@ func Create(config sshutils.SSHConfig) error {
 		return err
 	}
 
-	f, err := os.Create(filepath.Clean(filepath.Join(configPath, CONFIG_FILE_NAME)))
+	f, err := os.Create(filepath.Clean(filepath.Join(configPath, ConfigFileName)))
 
 	if err != nil {
 		return err
@@ -34,7 +34,7 @@ func Create(config sshutils.SSHConfig) error {
 		return err
 	}
 
-	err = os.WriteFile(filepath.Join(configPath, CONFIG_FILE_NAME), yaml, fs.FileMode(os.O_CREATE|os.O_WRONLY))
+	err = os.WriteFile(filepath.Join(configPath, ConfigFileName), yaml, fs.FileMode(os.O_CREATE|os.O_WRONLY))
 
 	if err != nil {
 		return err
@@ -45,7 +45,7 @@ func Create(config sshutils.SSHConfig) error {
 
 func Read() (sshutils.SSHConfig, error) {
 	config := sshutils.SSHConfig{}
-	bytes, err := os.ReadFile(filepath.Join(clientos.GetHomeDir(), ".retros", CONFIG_FILE_NAME))
+	bytes, err := os.ReadFile(filepath.Join(clientos.GetHomeDir(), ".retros", ConfigFileName))
 	if err != nil {
 		return config, err
 	}

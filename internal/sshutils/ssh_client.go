@@ -24,7 +24,7 @@ func EstablishSSHConnection(config SSHConfig) (*ssh.Client, error) {
 	}
 
 	if config.KeyPath == "" {
-		return nil, errors.New("SSH key path must be provided.")
+		return nil, errors.New("SSH key path must be provided")
 	}
 
 	key, err := os.ReadFile(config.KeyPath)
@@ -51,20 +51,20 @@ func EstablishSSHConnection(config SSHConfig) (*ssh.Client, error) {
 
 func trustedHostKeyCallback() ssh.HostKeyCallback {
 
-	known_hosts, err := readKnownHosts()
+	knownHosts, err := readKnownHosts()
 
 	if err != nil {
 		log.Fatalf("Failed to read known_hosts file")
 	}
 
 	return func(_ string, _ net.Addr, k ssh.PublicKey) error {
-		for _, v := range known_hosts {
+		for _, v := range knownHosts {
 			if strings.Contains(v, keyString(k)) {
 				return nil
 			}
 		}
 
-		var a []any = []any{"WARNING: SSH-key verification is *NOT* in effect: to fix, add this trustedKey: %q", keyString(k)}
+		var a = []any{"WARNING: SSH-key verification is *NOT* in effect: to fix, add this trustedKey: %q", keyString(k)}
 		fmt.Fprintln(os.Stdout, a...)
 		return nil
 	}

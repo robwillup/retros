@@ -13,7 +13,7 @@ import (
 )
 
 func GetChecksums(emulator, fsPath string) (map[string]ROM, error) {
-	var checksumPath string = filepath.Join(clientos.GetHomeDir(), ".retros")
+	var checksumPath = filepath.Join(clientos.GetHomeDir(), ".retros")
 
 	if fsPath != "" {
 		checksumPath = fsPath

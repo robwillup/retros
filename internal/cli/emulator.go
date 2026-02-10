@@ -54,7 +54,7 @@ func listEmulators(all bool) (string, error) {
 
 	config, err := config.Read()
 
-	if config.Host == LOCAL_MACHINE {
+	if config.Host == LocalMachine {
 		emulatorsPath = filepath.Join(clientos.GetHomeDir(), "RetroPie", "roms")
 	}
 
@@ -64,7 +64,7 @@ func listEmulators(all bool) (string, error) {
 
 	var client *ssh.Client = nil
 
-	if config.Host != LOCAL_MACHINE {
+	if config.Host != LocalMachine {
 		client, err = sshutils.EstablishSSHConnection(config)
 		if err != nil {
 			return "", err

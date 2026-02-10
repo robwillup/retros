@@ -58,7 +58,7 @@ func init() {
 }
 
 func checkConfig() {
-	configFile := filepath.Join(clientos.GetHomeDir(), ".retros", config.CONFIG_FILE_NAME)
+	configFile := filepath.Join(clientos.GetHomeDir(), ".retros", config.ConfigFileName)
 	if !filesystem.CheckIfExists(configFile) {
 		fmt.Println("RetroS must be configured. Run `retros cf` and follow the prompts")
 		return

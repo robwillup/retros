@@ -19,7 +19,6 @@ along with this program. If not, see <http://www.gnu.org/licenses/>.
 package cli
 
 import (
-	"errors"
 	"fmt"
 	"log"
 	"path"
@@ -86,15 +85,13 @@ func check(fsPath string) {
 	if err != nil {
 		fmt.Printf("Failed to verify ROM.\nError: %v\n", err)
 	}
-
-	return
 }
 
 func verifyFileIntegrity(fsPath string) error {
 	emulator := emulators.FindEmulatorFromExtension(fsPath)
 
 	if emulator == "" {
-		return errors.New(fmt.Sprintf("The file extension of '%s' is not yet supported.", filepath.Base(fsPath)))
+		return fmt.Errorf("the file extension of '%s' is not yet supported", filepath.Base(fsPath))
 	}
 
 	originalChecksums, err := checksum.GetChecksums(emulator, "")
@@ -131,5 +128,5 @@ func verifyFileIntegrity(fsPath string) error {
 		return nil
 	}
 
-	return errors.New(fmt.Sprintf("Invalid ROM: %s", originalFile.Name))
+	return fmt.Errorf("invalid ROM: %s", originalFile.Name)
 }

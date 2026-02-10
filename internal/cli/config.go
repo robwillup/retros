@@ -30,7 +30,7 @@ import (
 	"github.com/spf13/cobra"
 )
 
-const SSH_PORT = 22
+const SSHPort = 22
 
 // cfCmd represents the cf command
 var cfCmd = &cobra.Command{
@@ -82,7 +82,7 @@ retros cf retropie    Configure RetroPie path`,
 			conf.KeyPath = path.Join(home, "/.ssh/id_rsa")
 		}
 
-		conf.Port = SSH_PORT
+		conf.Port = SSHPort
 		err = config.Create(conf)
 
 		if err != nil {

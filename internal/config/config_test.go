@@ -13,7 +13,7 @@ import (
 	"github.com/robwillup/retros/internal/sshutils"
 )
 
-var configPath string = filepath.Join(clientos.GetHomeDir(), ".retros/", CONFIG_FILE_NAME)
+var configPath string = filepath.Join(clientos.GetHomeDir(), ".retros/", ConfigFileName)
 
 // Calls config.Create checking if the config file `.retros.yml` is created.
 func TestCreate(t *testing.T) {
@@ -74,7 +74,7 @@ func TestRead(t *testing.T) {
 		}
 
 		defer dest.Close()
-		_, err = io.Copy(dest, src)
+		_, _ = io.Copy(dest, src)
 	}
 
 	expected := sshutils.SSHConfig{
@@ -122,5 +122,5 @@ func TestRead(t *testing.T) {
 	}
 
 	defer dest.Close()
-	_, err = io.Copy(dest, src)
+	_, _ = io.Copy(dest, src)
 }
