@@ -32,7 +32,7 @@ jobs:
       run: GOOS=darwin GOARCH=arm64 go build -o bin/mac/osx-retros ../cmd/retros
 
     - name: Build Go binary for Windows
-      run: GOOS=windows go build -o bin/windows/retros.exe ../cmd/retros
+      run: GOOS=windows go build -o bin/windows/retros.exe ./cmd/retros
 
     - name: Create Release
       id: create_release
